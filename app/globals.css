@@ -1,26 +1,136 @@
 @import "tailwindcss";
 
+/* 
+   Isaiah Brown Portfolio
+   -----------------------
+   Global styles, color tokens, typography, and accessibility defaults.
+
+   This file sets the foundation for the full one-page portfolio:
+   - Color system
+   - Base typography
+   - Smooth scrolling
+   - Focus states
+   - Reduced motion support
+*/
+
+/* 
+   Design tokens
+   -------------
+   These CSS variables store the main portfolio colors in one place.
+
+   Even though many components currently use Tailwind arbitrary values
+   like bg-[#FFF8EE], keeping variables here makes the design system easier
+   to understand and update later.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+   /* Backgrounds / surfaces */
+   --background: #faf7f0;
+   --board: #fff8ee;
+   --card: #ffffff;
+
+   /* Text */
+   --text-primary: #111827;
+   --text-secondary: #5b6475;
+   --text-muted: #7a8494;
+
+   /* Accents */
+   --accent-blue: #1e40af;
+   --accent-orange: #c2410c;
+   --accent-green: #15803d;
+
+   /* Borders / dividers */
+   --border-sand: #e7dccb;
+
+   /* Dark contact/footer section */
+   --midnight: #0b1020;
+   --dark-text: #f8fafc;
+   --dark-secondary: #cbd5e1;
+
+   /* Typography fallback */
+   --font-main: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* 
+   Base reset
+   ----------
+   Keeps sizing predictable across the site.
+*/
+* {
+   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/*
+   Smooth same-page navigation.
+   Header links use section IDs like #home, #projects, and #contact.
+*/
+html {
+   scroll-behavior: smooth;
 }
 
+/*
+   Base page styling.
+   Body text stays at 16px minimum for readability and WCAG-friendly sizing.
+*/
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+   min-height: 100vh;
+   margin: 0;
+   background: var(--background);
+   color: var(--text-primary);
+   font-family: var(--font-main);
+   font-size: 16px;
+   line-height: 1.6;
+}
+
+/* 
+   Anchor scroll offset.
+   Prevents sticky header from covering section headings after navigation.
+*/
+section {
+   scroll-margin-top: 96px;
+}
+
+/*
+   Link defaults.
+   Components handle their own hover and focus styles.
+*/
+a {
+   color: inherit;
+   text-decoration: none;
+}
+
+/*
+   Removes mobile tap highlight flash while keeping proper focus styles below.
+*/
+button,
+a {
+   -webkit-tap-highlight-color: transparent;
+}
+
+/*
+   Accessible keyboard focus.
+   This makes keyboard navigation visible across links, buttons, and cards.
+*/
+:focus-visible {
+   outline: 3px solid var(--accent-blue);
+   outline-offset: 4px;
+}
+
+/*
+   Reduced motion support.
+   Users who prefer less motion should not receive smooth scrolling,
+   long transitions, or repeated animations.
+*/
+@media (prefers-reduced-motion: reduce) {
+   html {
+      scroll-behavior: auto;
+   }
+
+   *,
+   *::before,
+   *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+   }
 }
