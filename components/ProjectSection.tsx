@@ -43,7 +43,7 @@ export default function ProjectSection() {
             {/* Section intro */}
             <div className="mb-12 flex flex-col gap-4">
                {/* Small label to match the editorial scrapbook style */}
-               <p className="w-fit rotate-[-2deg] rounded-full border border-[#E7DCCB] bg-white px-4 py-2 text-sm font-medium text-[#C2410C] shadow-sm">project board</p>
+               <p className="w-fit rotate-[-2deg] rounded-full border border-[#E7DCCB] bg-white px-4 py-2 text-sm font-medium text-[#C2410C] shadow-sm">Project Board</p>
 
                <div className="max-w-3xl">
                   <h2 className="text-4xl font-bold tracking-[-0.04em] text-[#111827] md:text-6xl">Featured projects</h2>
