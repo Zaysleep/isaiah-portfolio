@@ -1,188 +1,406 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import type { Project } from "@/data/projects";
-
-/*
-   ProjectCard
-   -----------
-   This component displays one project card inside the Projects section.
-
-   What it handles:
-   - Project preview image
-   - Project title, subtitle, status, and short description
-   - Tech stack tags
-   - Live app / concept link
-   - Expandable project details
-
-   Interaction notes:
-   - Clicking the main card opens project details on the same page.
-   - Clicking "View Live App" opens the external project link.
-   - The live app button is intentionally outside the main card button so it does
-     not accidentally trigger the detail expansion.
-*/
 
 type ProjectCardProps = {
    project: Project;
-   index: number;
-   isExpanded: boolean;
-   onToggle: () => void;
+   index?: number;
 };
 
-export default function ProjectCard({ project, index, isExpanded, onToggle }: ProjectCardProps) {
-   /*
-      If liveUrl is still "#", we treat the button as unavailable.
-      This is useful for projects that are still in development.
-   */
-   const isLiveUrlReady = project.liveUrl !== "#";
+export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+   // Controls the existing same-page project detail expansion.
+   const [isExpanded, setIsExpanded] = useState(false);
 
-   /*
-      Adds a subtle scrapbook rotation on desktop.
-      This keeps the project board feeling personal without making it messy.
-   */
-   const rotationClass = index % 2 === 0 ? "md:-rotate-1" : "md:rotate-1";
+   const detailsId = `${project.id}-details`;
+
+   // Keeps the subtle scrapbook-board feeling by slightly rotating cards
+   // in opposite directions on larger screens.
+   const rotationClass = index % 2 === 0 ? "lg:-rotate-[0.5deg]" : "lg:rotate-[0.5deg]";
 
    return (
-      <article className={`group rounded-[2rem] border border-[#E7DCCB] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${rotationClass}`}>
-         {/* 
-            Main clickable card area.
-            This expands or collapses the details panel.
-         */}
-         <button type="button" onClick={onToggle} aria-expanded={isExpanded} aria-controls={`${project.id}-details`} className="block w-full rounded-[1.5rem] text-left focus-visible:outline-[#1E40AF]">
-            {/* Image wrapper with scrapbook-style border and tape accent */}
-            <div className="relative overflow-hidden rounded-[1.5rem] border border-[#E7DCCB] bg-[#FFF8EE] p-4">
-               {/* Decorative tape accent */}
-               <div className="absolute left-6 top-0 z-10 h-7 w-20 -translate-y-1/2 rotate-[-3deg] rounded-sm border border-[#E7DCCB] bg-[#FAF7F0]/90" aria-hidden="true" />
+      <article
+         className={`
+        relative overflow-hidden rounded-3xl border border-[#E7DCCB]
+        bg-white shadow-[0_18px_60px_rgba(17,24,39,0.10)]
+        transition duration-300
+        hover:-translate-y-1
+        hover:shadow-[0_24px_70px_rgba(17,24,39,0.14)]
+        motion-reduce:transform-none
+        motion-reduce:transition-none
+        ${rotationClass}
+      `}
+      >
+         {/* Decorative scrapbook tape detail */}
+         <div
+            aria-hidden="true"
+            className="
+          absolute left-1/2 top-0 z-10
+          h-7 w-24
+          -translate-x-1/2 -translate-y-2
+          rotate-[-2deg]
+          bg-[#E7DCCB]/80
+          shadow-sm
+        "
+         />
 
-               {/* 
-                  Project image frame:
-                  - `fill` lets the image fill the entire frame.
-                  - `object-cover` prevents empty gaps.
-                  - `object-[50%_50%]` centers the image.
-                  - Adjust to `object-[50%_45%]` or `object-[50%_55%]`
-                    if a logo or screenshot needs slight repositioning.
-               */}
-               <div className="relative h-44 overflow-hidden rounded-[1.25rem] border border-[#E7DCCB] bg-white sm:h-48 md:h-52 lg:h-56">
-                  <Image src={project.image} alt={`${project.name} project preview`} fill priority={index === 0} sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-[50%_50%] transition duration-300 group-hover:scale-[1.02]" />
-               </div>
-            </div>
+         {/* Project image */}
+         <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#FFF8EE]">
+            <Image
+               src={project.image}
+               alt={`${project.name} project preview`}
+               fill
+               sizes="
+            (max-width: 768px) 100vw,
+            (max-width: 1200px) 50vw,
+            600px
+          "
+               className="
+            object-cover
+            transition duration-500
+            hover:scale-[1.02]
+            motion-reduce:transform-none
+            motion-reduce:transition-none
+          "
+               priority={index === 0}
+            />
+         </div>
 
-            {/* Project summary */}
-            <div className="mt-6 space-y-3">
-               {/* Subtitle and status labels */}
-               <div className="flex flex-wrap items-center gap-3">
-                  <span className="rounded-full border border-[#E7DCCB] bg-[#FFF8EE] px-3 py-1 text-xs font-medium text-[#5B6475]">{project.subtitle}</span>
-
-                  <span className="rounded-full border border-[#E7DCCB] bg-white px-3 py-1 text-xs font-medium text-[#15803D]" aria-label={project.statusLabel}>
-                     {project.status}
-                  </span>
-               </div>
-
-               <h3 className="text-3xl font-bold tracking-[-0.03em] text-[#111827]">{project.name}</h3>
-
-               <p className="text-base leading-7 text-[#5B6475]">{project.description}</p>
-            </div>
-         </button>
-
-         {/* Technology tags */}
-         <div className="mt-5 flex flex-wrap gap-2" aria-label="Technology stack">
-            {project.techTags.map((tag) => (
-               <span key={tag} className="rounded-full bg-[#FAF7F0] px-3 py-1 text-xs font-medium text-[#5B6475]">
-                  {tag}
+         {/* Main project card content */}
+         <div className="p-6 sm:p-8">
+            {/* Status */}
+            <div className="mb-4">
+               <span
+                  className="
+              inline-flex min-h-8 items-center
+              rounded-full
+              border border-[#15803D]/20
+              bg-[#15803D]/10
+              px-3 py-1
+              text-sm font-medium
+              text-[#166534]
+            "
+                  aria-label={project.statusLabel}
+               >
+                  {project.status}
                </span>
-            ))}
+            </div>
+
+            {/* Project heading */}
+            <div className="space-y-2">
+               <h3 className="text-3xl font-bold tracking-tight text-[#111827]">{project.name}</h3>
+
+               <p className="text-lg font-semibold text-[#1E40AF]">{project.subtitle}</p>
+            </div>
+
+            {/* Short description */}
+            <p className="mt-5 text-base leading-7 text-[#5B6475]">{project.description}</p>
+
+            {/* Technology tags */}
+            <div className="mt-6 flex flex-wrap gap-2" aria-label={`${project.name} technology stack`}>
+               {project.techTags.map((tag) => (
+                  <span
+                     key={tag}
+                     className="
+                rounded-full
+                border border-[#E7DCCB]
+                bg-[#FAF7F0]
+                px-3 py-1.5
+                text-sm font-medium
+                text-[#374151]
+              "
+                  >
+                     {tag}
+                  </span>
+               ))}
+            </div>
+
+            {/* Card actions */}
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+               {/* Live application link */}
+               <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="
+              inline-flex min-h-11 items-center justify-center
+              rounded-full
+              bg-[#E76F51]
+              px-5 py-3
+              text-sm font-semibold
+              text-white
+              transition
+              hover:bg-[#D85F43]
+              focus:outline-none
+              focus-visible:ring-4
+              focus-visible:ring-[#E76F51]/30
+            "
+               >
+                  {project.liveActionLabel}
+               </a>
+
+               {/* Same-page expanded details button */}
+               <button
+                  type="button"
+                  onClick={() => setIsExpanded((current) => !current)}
+                  aria-expanded={isExpanded}
+                  aria-controls={detailsId}
+                  className="
+              inline-flex min-h-11 items-center justify-center
+              rounded-full
+              border border-[#1E40AF]
+              bg-white
+              px-5 py-3
+              text-sm font-semibold
+              text-[#1E40AF]
+              transition
+              hover:bg-[#EFF6FF]
+              focus:outline-none
+              focus-visible:ring-4
+              focus-visible:ring-[#1E40AF]/20
+            "
+               >
+                  {isExpanded ? "Hide Details" : "View Details"}
+               </button>
+            </div>
          </div>
 
-         {/* Project actions */}
-         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            {/* 
-               Primary action:
-               Uses Burnt Orange to feel warm, energetic, and more portfolio-friendly.
-               If the project link is not ready yet, the button appears disabled.
-            */}
-            <a
-               href={isLiveUrlReady ? project.liveUrl : undefined}
-               target={isLiveUrlReady ? "_blank" : undefined}
-               rel={isLiveUrlReady ? "noreferrer" : undefined}
-               aria-disabled={!isLiveUrlReady}
-               className={`inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition ${
-                  isLiveUrlReady ? "bg-[#C2410C] text-white hover:bg-[#9A3412]" : "pointer-events-none cursor-not-allowed bg-[#E7DCCB] text-[#5B6475]"
-               }`}
+         {/* Expanded project details */}
+         {isExpanded && (
+            <div
+               id={detailsId}
+               className="
+            border-t border-[#E7DCCB]
+            bg-[#FFFDF8]
+            px-6 py-8
+            sm:px-8 sm:py-10
+          "
             >
-               {project.liveActionLabel}
-            </a>
-
-            {/* Secondary action: expands project details on the same page */}
-            <button
-               type="button"
-               onClick={onToggle}
-               aria-expanded={isExpanded}
-               aria-controls={`${project.id}-details`}
-               className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#E7DCCB] bg-white px-5 py-3 text-sm font-medium text-[#111827] transition hover:bg-[#FFF8EE] focus-visible:outline-[#1E40AF]"
-            >
-               {isExpanded ? "Hide Details" : "View Details"}
-            </button>
-         </div>
-
-         {/* Expandable details panel */}
-         <div id={`${project.id}-details`} className={`overflow-hidden transition-all ${isExpanded ? "mt-6 max-h-[1600px] opacity-100" : "max-h-0 opacity-0"}`}>
-            <div className="rounded-[1.5rem] border border-[#E7DCCB] bg-[#FAF7F0] p-5">
-               <div className="space-y-5">
+               <div className="space-y-9">
                   {/* Overview */}
-                  <div>
-                     <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-[#C2410C]">Overview</h4>
+                  <section aria-labelledby={`${project.id}-overview`}>
+                     <h4
+                        id={`${project.id}-overview`}
+                        className="
+                  text-xl font-semibold
+                  tracking-tight
+                  text-[#111827]
+                "
+                     >
+                        Overview
+                     </h4>
 
-                     <p className="mt-2 text-base leading-7 text-[#5B6475]">{project.details.overview}</p>
-                  </div>
+                     <p className="mt-3 text-base leading-7 text-[#5B6475]">{project.details.overview}</p>
+                  </section>
 
-                  {/* Optional core idea */}
-                  {project.details.coreIdea && (
-                     <div>
-                        <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-[#C2410C]">Core idea</h4>
+                  {/* Optional problem section */}
+                  {project.details.problem && (
+                     <section aria-labelledby={`${project.id}-problem`}>
+                        <h4
+                           id={`${project.id}-problem`}
+                           className="
+                    text-xl font-semibold
+                    tracking-tight
+                    text-[#111827]
+                  "
+                        >
+                           Problem
+                        </h4>
 
-                        <p className="mt-2 rounded-2xl bg-white p-4 text-base font-semibold text-[#111827]">“{project.details.coreIdea}”</p>
-                     </div>
+                        <p className="mt-3 text-base leading-7 text-[#5B6475]">{project.details.problem}</p>
+                     </section>
                   )}
 
-                  {/* Optional problem statement */}
-                  {project.details.problem && (
-                     <div>
-                        <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-[#C2410C]">Problem</h4>
+                  {/* Optional core idea section */}
+                  {project.details.coreIdea && (
+                     <section aria-labelledby={`${project.id}-core-idea`}>
+                        <h4
+                           id={`${project.id}-core-idea`}
+                           className="
+                    text-xl font-semibold
+                    tracking-tight
+                    text-[#111827]
+                  "
+                        >
+                           Core Idea
+                        </h4>
 
-                        <p className="mt-2 text-base leading-7 text-[#5B6475]">{project.details.problem}</p>
-                     </div>
+                        <p className="mt-3 text-base leading-7 text-[#5B6475]">{project.details.coreIdea}</p>
+                     </section>
+                  )}
+
+                  {/* FrontOffice feature summary */}
+                  {project.details.whatIBuilt && project.details.whatIBuilt.length > 0 && (
+                     <section aria-labelledby={`${project.id}-what-i-built`}>
+                        <h4
+                           id={`${project.id}-what-i-built`}
+                           className="
+                      text-xl font-semibold
+                      tracking-tight
+                      text-[#111827]
+                    "
+                        >
+                           What I Built
+                        </h4>
+
+                        <ul className="mt-4 grid gap-3 md:grid-cols-2">
+                           {project.details.whatIBuilt.map((item) => (
+                              <li
+                                 key={item}
+                                 className="
+                          flex items-start gap-3
+                          rounded-2xl
+                          border border-[#E7DCCB]
+                          bg-white
+                          p-4
+                          text-base
+                          leading-6
+                          text-[#5B6475]
+                        "
+                              >
+                                 <span
+                                    aria-hidden="true"
+                                    className="
+                            mt-2
+                            h-2 w-2
+                            shrink-0
+                            rounded-full
+                            bg-[#E76F51]
+                          "
+                                 />
+
+                                 <span>{item}</span>
+                              </li>
+                           ))}
+                        </ul>
+                     </section>
                   )}
 
                   {/* Development focus */}
-                  <div>
-                     <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-[#C2410C]">Development focus</h4>
+                  {project.details.developmentFocus && (
+                     <section aria-labelledby={`${project.id}-development-focus`}>
+                        <h4
+                           id={`${project.id}-development-focus`}
+                           className="
+                    text-xl font-semibold
+                    tracking-tight
+                    text-[#111827]
+                  "
+                        >
+                           Development Focus
+                        </h4>
 
-                     <ul className="mt-3 grid gap-2">
-                        {project.details.developmentFocus.map((item) => (
-                           <li key={item} className="rounded-2xl border border-[#E7DCCB] bg-white px-4 py-3 text-sm text-[#5B6475]">
-                              {item}
-                           </li>
-                        ))}
-                     </ul>
-                  </div>
+                        {/* FrontOffice uses a paragraph */}
+                        {typeof project.details.developmentFocus === "string" ? (
+                           <p className="mt-3 text-base leading-7 text-[#5B6475]">{project.details.developmentFocus}</p>
+                        ) : (
+                           // ALLEVIN continues to use its existing feature list.
+                           <ul className="mt-4 grid gap-3 md:grid-cols-2">
+                              {project.details.developmentFocus.map((item) => (
+                                 <li
+                                    key={item}
+                                    className="
+                          flex items-start gap-3
+                          rounded-2xl
+                          border border-[#E7DCCB]
+                          bg-white
+                          p-4
+                          text-base
+                          leading-6
+                          text-[#5B6475]
+                        "
+                                 >
+                                    <span
+                                       aria-hidden="true"
+                                       className="
+                            mt-2
+                            h-2 w-2
+                            shrink-0
+                            rounded-full
+                            bg-[#1E40AF]
+                          "
+                                    />
 
-                  {/* Quick project metadata */}
-                  <div className="grid gap-4 sm:grid-cols-2">
-                     <div className="rounded-2xl bg-white p-4">
-                        <h4 className="text-sm font-bold text-[#111827]">Tech stack</h4>
+                                    <span>{item}</span>
+                                 </li>
+                              ))}
+                           </ul>
+                        )}
+                     </section>
+                  )}
 
-                        <p className="mt-2 text-sm leading-6 text-[#5B6475]">{project.details.techStack}</p>
-                     </div>
+                  {/* Current testing state */}
+                  {project.details.currentStatus && (
+                     <section aria-labelledby={`${project.id}-current-status`}>
+                        <h4
+                           id={`${project.id}-current-status`}
+                           className="
+                    text-xl font-semibold
+                    tracking-tight
+                    text-[#111827]
+                  "
+                        >
+                           Current Status
+                        </h4>
 
-                     <div className="rounded-2xl bg-white p-4">
-                        <h4 className="text-sm font-bold text-[#111827]">Status</h4>
+                        <p className="mt-3 text-base leading-7 text-[#5B6475]">{project.details.currentStatus}</p>
+                     </section>
+                  )}
 
-                        <p className="mt-2 text-sm leading-6 text-[#5B6475]">{project.details.status}</p>
-                     </div>
-                  </div>
+                  {/* Compact project metadata */}
+                  {project.details.metadata && (
+                     <section
+                        aria-label={`${project.name} project information`}
+                        className="
+                  rounded-2xl
+                  border border-[#E7DCCB]
+                  bg-[#FAF7F0]
+                  p-5
+                "
+                     >
+                        <dl className="space-y-4">
+                           <div
+                              className="
+                      grid gap-1
+                      sm:grid-cols-[90px_1fr]
+                      sm:gap-4
+                    "
+                           >
+                              <dt className="font-semibold text-[#111827]">Status:</dt>
+
+                              <dd className="text-[#5B6475]">{project.details.metadata.status}</dd>
+                           </div>
+
+                           <div
+                              className="
+                      grid gap-1
+                      sm:grid-cols-[90px_1fr]
+                      sm:gap-4
+                    "
+                           >
+                              <dt className="font-semibold text-[#111827]">Stack:</dt>
+
+                              <dd className="text-[#5B6475]">{project.details.metadata.stack}</dd>
+                           </div>
+
+                           <div
+                              className="
+                      grid gap-1
+                      sm:grid-cols-[90px_1fr]
+                      sm:gap-4
+                    "
+                           >
+                              <dt className="font-semibold text-[#111827]">Role:</dt>
+
+                              <dd className="text-[#5B6475]">{project.details.metadata.role}</dd>
+                           </div>
+                        </dl>
+                     </section>
+                  )}
                </div>
             </div>
-         </div>
+         )}
       </article>
    );
 }

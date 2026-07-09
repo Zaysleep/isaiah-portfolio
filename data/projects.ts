@@ -1,173 +1,80 @@
-/*
-   projects.ts
-   -----------
-   This file stores the content for the portfolio project cards.
+// data/projects.ts
+// Central project data for the portfolio.
+//
+// Keeping project content in one file makes it easier to update project
+// statuses, descriptions, links, technology stacks, and expanded details
+// without rewriting the project card component.
 
-   Why this file exists:
-   - Keeps project content separate from the UI components.
-   - Makes it easier to update descriptions, links, images, and tech tags later.
-   - Lets ProjectSection and ProjectCard stay reusable instead of hardcoding
-     ALLEVIN and FrontOffice directly inside the components.
-
-   How it connects:
-   - ProjectSection imports the `projects` array.
-   - ProjectCard receives each project as a prop.
-   - The card uses this data to render the title, image, status, tags,
-     live link, and expanded details.
-*/
-
-/*
-   Project type
-   ------------
-   This defines the shape of each project object.
-
-   TypeScript uses this to help catch mistakes early.
-   Example:
-   - If a project is missing `name`, TypeScript will warn us.
-   - If `techTags` is not an array of strings, TypeScript will warn us.
-*/
-export type Project = {
-   /*
-      Unique project ID.
-      Used for React keys and for connecting each card to its expandable
-      details panel with aria-controls.
-   */
-   id: string;
-
-   // Main project name shown on the card.
-   name: string;
-
-   // Short label that explains the type of project.
-   subtitle: string;
-
-   // Visible project status shown on the card.
+export type ProjectMetadata = {
    status: string;
-
-   /*
-      Accessibility label for the status.
-      This gives screen readers a clearer version of the status meaning.
-   */
-   statusLabel: string;
-
-   // Short card description.
-   description: string;
-
-   /*
-      Image path from the public folder.
-      Example:
-      public/images/allevin-preview.png
-      becomes:
-      /images/allevin-preview.png
-   */
-   image: string;
-
-   // Small technology badges shown on each project card.
-   techTags: string[];
-
-   /*
-      External project link.
-      Use "#" as a placeholder when a project is not deployed yet.
-   */
-   liveUrl: string;
-
-   // Button text for the primary action.
-   liveActionLabel: string;
-
-   /*
-      Expanded project details.
-      These appear when the user clicks "View Details" or the card body.
-   */
-   details: {
-      // Quick explanation of what the project is.
-      overview: string;
-
-      // Optional problem statement. Not every project has to use this.
-      problem?: string;
-
-      // Optional core idea or slogan.
-      coreIdea?: string;
-
-      // Bullets explaining what the build focuses on.
-      developmentFocus: string[];
-
-      // Tech stack summary shown inside the details panel.
-      techStack: string;
-
-      // Detailed status shown inside the details panel.
-      status: string;
-   };
+   stack: string;
+   role: string;
 };
 
-/*
-   Featured projects
-   -----------------
-   These are the two main portfolio projects shown on the page.
+export type ProjectDetails = {
+   overview: string;
 
-   Current portfolio focus:
-   1. ALLEVIN — AI-assisted adaptive project workspace
-   2. FrontOffice — sports GM and social hub concept
+   // Optional fields allow each project to tell its story differently.
+   problem?: string;
+   coreIdea?: string;
 
-   To add another project later:
-   - Copy one project object.
-   - Give it a new id, name, image, and details.
-   - The UI will automatically render it in the project board.
-*/
+   // ALLEVIN uses a list while FrontOffice uses a short paragraph.
+   developmentFocus?: string | string[];
+
+   // FrontOffice-specific product feature list.
+   whatIBuilt?: string[];
+
+   // Current live/testing state.
+   currentStatus?: string;
+
+   // Compact project information shown at the bottom of expanded details.
+   metadata?: ProjectMetadata;
+};
+
+export type Project = {
+   id: string;
+   name: string;
+   subtitle: string;
+   status: string;
+   statusLabel: string;
+   description: string;
+   image: string;
+   techTags: string[];
+   liveUrl: string;
+   liveActionLabel: string;
+   details: ProjectDetails;
+};
+
 export const projects: Project[] = [
    {
       id: "allevin",
+
       name: "ALLEVIN",
+
       subtitle: "AI-Assisted Adaptive Workspace",
+
       status: "Live / In Testing",
+
       statusLabel: "Live AI-assisted project workspace currently in testing",
 
-      /*
-         Short description shown directly on the card.
-         This gives visitors the quick version before they open the details.
-      */
       description: "An AI-assisted adaptive project workspace that keeps projects, materials, writing, schedules, and next steps connected in one calm interface.",
 
       image: "/images/allevin-preview.png",
 
-      /*
-         These tags are intentionally short.
-         They quickly show the stack without turning the card into a résumé.
-      */
       techTags: ["Next.js", "TypeScript", "Tailwind CSS", "React", "Vercel"],
 
       liveUrl: "https://allevin.vercel.app/",
+
       liveActionLabel: "View Live App",
 
       details: {
-         /*
-            Overview:
-            This explains what ALLEVIN is in plain language.
-            It frames the project as more than a task board or chatbot.
-         */
-         overview: "ALLEVIN is an AI-assisted adaptive project workspace that helps users keep their projects, materials, writing, schedule, and next steps connected in one calm interface.",
+         overview: "ALLEVIN is an AI-assisted adaptive project workspace that helps users keep projects, materials, writing, schedules, and next steps connected in one calm interface.",
 
-         /*
-            Problem:
-            This explains why the project exists.
-            The focus is on reducing scattered tools, clutter, and context switching.
-         */
          problem:
             "Many productivity tools separate planning, writing, research materials, schedules, and next actions into different places. ALLEVIN explores how an adaptive single-page workspace can reduce that friction and help users stay focused without feeling overwhelmed.",
 
-         /*
-            Core idea:
-            This highlights the AI angle clearly.
-            The point is that ALLEVIN is not just a chatbot sitting next to a page;
-            the assistant layer works from the user's active project context.
-         */
          coreIdea: "Unlike a standalone chatbot, ALLEVIN’s assistant layer works from the user’s active project context to support the work already in motion.",
 
-         /*
-            Development focus:
-            These bullets explain the thought process behind the build:
-            - what problems the project is solving
-            - what UX choices matter
-            - what technical areas were practiced
-         */
          developmentFocus: [
             "AI-assisted workspace layer through AIDock",
             "Project creation and project-aware context",
@@ -183,74 +90,70 @@ export const projects: Project[] = [
             "GitHub and Vercel deployment",
          ],
 
-         techStack: "Next.js, TypeScript, React, Tailwind CSS, Vercel",
-         status: "Live / In Testing",
+         metadata: {
+            status: "Live / In Testing",
+
+            stack: "Next.js · React · TypeScript · Tailwind CSS · Vercel",
+
+            role: "Product Design · UX · Frontend Engineering · AI Workflow Design",
+         },
       },
    },
+
    {
       id: "frontoffice",
-      name: "FrontOffice",
-      subtitle: "Multi-Sport GM Social Hub",
-      status: "In Development",
-      statusLabel: "Project currently in development",
 
-      /*
-         Short description shown directly on the card.
-         This keeps the concept understandable before users open the full details.
-      */
-      description: "A multi-sport GM platform where fans manage teams, make moves, post hot takes, debate in War Rooms, and keep receipts on their calls.",
+      name: "FrontOffice",
+
+      subtitle: "Multi-Sport GM Social Hub",
+
+      status: "Live / Active Testing",
+
+      statusLabel: "Live multi-user sports social platform currently undergoing active user testing",
+
+      description: "A live multi-sport social platform where fans follow their teams, make calls, debate in the War Room, and keep receipts on their predictions and opinions.",
 
       image: "/images/frontoffice-preview.png",
 
-      techTags: ["Next.js", "TypeScript", "Tailwind CSS", "React", "API-Ready"],
+      techTags: ["Next.js", "TypeScript", "React", "Supabase", "Tailwind CSS", "Vercel"],
 
-      /*
-         FrontOffice is still in development.
-         Keeping "#" here makes the card button appear disabled until the
-         project has a deployed Vercel link.
-      */
-      liveUrl: "#",
-      liveActionLabel: "View Concept",
+      liveUrl: "https://front-office-lilac.vercel.app",
+
+      liveActionLabel: "View Live App",
 
       details: {
-         /*
-            Overview:
-            This explains the product idea in a way that is easy for both
-            sports fans and hiring reviewers to understand.
-         */
-         overview: "FrontOffice is a responsive multi-sport GM/social hub where fans can feel like they are managing their favorite teams across football, soccer, NBA, and baseball.",
+         overview:
+            "FrontOffice is a live multi-sport social platform built around the idea: “Be the GM. Make the call. Keep the receipts.” Users can create accounts, follow teams and other users, post sports takes, debate in shared War Room discussions, vote, comment, save posts, build a history of receipts, manage profiles, and receive activity notifications.",
 
-         /*
-            Core idea:
-            This is the product slogan and the main emotional hook.
-         */
-         coreIdea: "Be the GM. Make the call. Keep the receipts.",
-
-         /*
-            Problem:
-            This explains the behavior FrontOffice is built around:
-            fans already debate sports decisions everywhere, but those takes
-            usually disappear into group chats and timelines.
-         */
-         problem: "Sports fans already debate trades, lineups, contracts, signings, player movement, and hot takes across group chats and social platforms. FrontOffice gives those conversations structure, memory, and a social GM-style experience.",
-
-         /*
-            Development focus:
-            These bullets show how the concept becomes a real product system.
-         */
-         developmentFocus: [
-            "Team Manager Switcher",
-            "Multi-sport responsive UI",
-            "Move Desk for trades, transfers, free agency, and roster decisions",
-            "Hot Takes",
-            "War Room discussions",
-            "Receipts Vault",
-            "Comment and reaction system",
-            "API-ready architecture for live news, stats, standings, injuries, transactions, transfers, and performance trends",
+         whatIBuilt: [
+            "Full account creation, email verification, authentication, and onboarding flow",
+            "Multi-team selection and personalized sports experience",
+            "Public user profiles with editable usernames, profile images, bios, and team identity",
+            "Shared War Room social feed with posts, voting, comments, replies, bookmarks, and sharing",
+            "Receipt system that preserves user predictions and connects them back to the original discussion",
+            "Following system with follower and following relationships",
+            "In-app notifications and browser push notifications",
+            "User-controlled notification preferences",
+            "Reporting, blocking, moderation, and rate-limit protection",
+            "Responsive mobile, tablet, and desktop layouts",
+            "Live sports information architecture supporting NBA, NFL, MLB, Premier League, and MLS",
+            "Supabase authentication, database persistence, Row Level Security, and realtime social data",
+            "Next.js, React, TypeScript, Tailwind CSS, Supabase, GitHub, and Vercel deployment",
          ],
 
-         techStack: "Next.js, TypeScript, React, Tailwind CSS, Vercel",
-         status: "In Development",
+         developmentFocus:
+            "FrontOffice became my largest public-facing software project and gave me experience designing both the interface and the underlying product system. The work included authentication, relational social data, responsive UI design, notification delivery, user preferences, moderation, sports data architecture, production debugging, deployment, and testing with real users across different devices.",
+
+         currentStatus:
+            "FrontOffice is currently live and undergoing active user testing. I am collecting feedback from real users, fixing onboarding and mobile issues, improving notification delivery, refining the social experience, and preparing the application for continued public use.",
+
+         metadata: {
+            status: "Live / Active Testing",
+
+            stack: "Next.js · React · TypeScript · Tailwind CSS · Supabase · Vercel",
+
+            role: "Product Design · UX · Frontend Engineering · Backend Integration",
+         },
       },
    },
 ];
