@@ -23,7 +23,7 @@ export default function ProjectSection() {
                   className="
               text-sm font-semibold uppercase
               tracking-[0.2em]
-              text-[#C2410C]
+              text-[#E76F51]
             "
                >
                   Projects
@@ -48,8 +48,8 @@ export default function ProjectSection() {
               text-[#5B6475]
             "
                >
-                  These are the builds where ideas move from &ldquo;what if?&rdquo; to working product. ALLEVIN focuses on calmer project workflows with AI-assisted context, while FrontOffice turns sports debates into a social GM experience. Different
-                  problems, same goal: make the interface feel useful, focused, and worth coming back to.
+                  These projects explore different sides of the work I enjoy: thoughtful AI-assisted workflows, full-stack social products, and the design systems that bring those ideas together. Different problems, same goal: build experiences that feel
+                  useful, focused, and worth coming back to.
                </p>
             </div>
 
@@ -62,9 +62,29 @@ export default function ProjectSection() {
             lg:items-start
           "
             >
-               {projects.map((project, index) => (
-                  <ProjectCard key={project.id} project={project} index={index} />
-               ))}
+               {projects.map((project, index) => {
+                  // With three projects, the final card is centered beneath
+                  // the first two on large screens.
+                  const isCenteredFinalCard = projects.length % 2 !== 0 && index === projects.length - 1;
+
+                  return (
+                     <div
+                        key={project.id}
+                        className={
+                           isCenteredFinalCard
+                              ? `
+                        lg:col-span-2
+                        lg:mx-auto
+                        lg:w-full
+                        lg:max-w-2xl
+                      `
+                              : ""
+                        }
+                     >
+                        <ProjectCard project={project} index={index} />
+                     </div>
+                  );
+               })}
             </div>
          </div>
       </section>
