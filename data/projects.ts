@@ -93,7 +93,6 @@ export const projects: Project[] = [
 
       liveActionLabel: "View Live App",
 
-      // Replace this with your public ALLEVIN GitHub repo link if it is different.
       githubUrl: "https://github.com/Zaysleep/allevin",
 
       githubActionLabel: "View GitHub",
@@ -199,54 +198,131 @@ export const projects: Project[] = [
 
       name: "FrontOffice",
 
-      subtitle: "Multi-Sport GM Social Hub",
+      subtitle: "Multi-Sport GM Social Platform",
 
       status: "Live / Active Testing",
 
-      statusLabel: "Live multi-user sports social platform currently undergoing active user testing",
+      statusLabel: "Live full-stack multi-user sports social platform currently undergoing active user testing",
 
-      description: "A live multi-sport social platform where fans follow their teams, make calls, debate in the War Room, and keep receipts on their predictions and opinions.",
+      description: "A live full-stack sports social platform where fans follow teams, make calls, debate in War Rooms, and keep receipts on their predictions and opinions.",
 
       image: "/images/frontoffice-preview.png",
 
-      techTags: ["Next.js", "TypeScript", "React", "Supabase", "Tailwind CSS", "Vercel"],
+      techTags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Postgres", "Auth", "Realtime Data", "GitHub", "Vercel"],
 
       liveUrl: "https://front-office-lilac.vercel.app",
 
       liveActionLabel: "View Live App",
 
+      githubUrl: "https://github.com/Zaysleep/FrontOffice",
+
+      githubActionLabel: "View GitHub",
+
       details: {
          overview:
-            "FrontOffice is a live multi-sport social platform built around the idea: “Be the GM. Make the call. Keep the receipts.” Users can create accounts, follow teams and other users, post sports takes, debate in shared War Room discussions, vote, comment, save posts, build a history of receipts, manage profiles, and receive activity notifications.",
+            "FrontOffice is a live full-stack sports social platform built around the idea: “Be the GM. Make the call. Keep the receipts.”\n\nThe product gives sports fans a place to follow their teams, post takes, debate moves, vote on opinions, comment in shared discussions, save posts, build public profiles, follow other users, and preserve predictions through a Receipts system.\n\nUnlike a basic sports news app or open-ended social feed, FrontOffice is built around structured sports conversation. Users are not just posting into the void — they are making calls, reacting to team situations, joining War Room discussions, and creating a track record of what they believed before the outcome was known.\n\nThe current version includes backend persistence, authentication, user profiles, social interactions, notifications, moderation flows, and tested receipt behavior. The next major product layer is live sports data integration so the platform can surface team news, standings, injuries, schedules, transactions, and event-driven prompts.",
 
-         whatIBuilt: [
-            "Full account creation, email verification, authentication, and onboarding flow",
-            "Multi-team selection and personalized sports experience",
-            "Public user profiles with editable usernames, profile images, bios, and team identity",
-            "Shared War Room social feed with posts, voting, comments, replies, bookmarks, and sharing",
-            "Receipt system that preserves user predictions and connects them back to the original discussion",
-            "Following system with follower and following relationships",
-            "In-app notifications and browser push notifications",
-            "User-controlled notification preferences",
-            "Reporting, blocking, moderation, and rate-limit protection",
-            "Responsive mobile, tablet, and desktop layouts",
-            "Live sports information architecture supporting NBA, NFL, MLB, Premier League, and MLS",
-            "Supabase authentication, database persistence, Row Level Security, and realtime social data",
-            "Next.js, React, TypeScript, Tailwind CSS, Supabase, GitHub, and Vercel deployment",
+         mkSection: {
+            title: "Full-Stack MVP — Social Platform + Receipts System",
+
+            copy: "FrontOffice has moved beyond concept design into a functional full-stack MVP.\n\nThe current build supports real user accounts, authenticated sessions, persistent user-generated content, public profiles, follows, voting, comments, bookmarks, notifications, blocking, reporting, and a Receipts system that preserves predictions and links them back to the original discussion.\n\nThis phase focused on proving that the core platform loop works: a user can join the app, choose teams, participate in discussions, make a call, save or receive activity, and build a history around their sports opinions.\n\nThe product is now ready for the next major layer: live sports data that gives users more reasons to return, react, debate, and create receipts around real events.",
+         },
+
+         capabilities: [
+            {
+               title: "Account system",
+               description: "Supports account creation, email verification, authentication, onboarding, protected routes, and user-specific app experiences.",
+            },
+            {
+               title: "Personalized team setup",
+               description: "Allows users to select teams and shape their sports identity around the leagues and teams they follow.",
+            },
+            {
+               title: "Public user profiles",
+               description: "Includes editable usernames, profile images, bios, team identity, user activity, and public-facing profile pages.",
+            },
+            {
+               title: "War Room social feed",
+               description: "Gives users a shared space to post takes, debate moves, vote, comment, reply, bookmark, and share sports opinions.",
+            },
+            {
+               title: "Receipts system",
+               description: "Preserves user predictions and opinions so they can be revisited later and connected back to the original discussion.",
+            },
+            {
+               title: "Following system",
+               description: "Supports follower and following relationships so users can build a sports-centered social graph.",
+            },
+            {
+               title: "Notifications",
+               description: "Includes in-app notifications, browser push notification support, and user-controlled notification preferences.",
+            },
+            {
+               title: "Moderation and safety",
+               description: "Includes reporting, blocking, interaction limits, moderation protections, and rate-limit logic for healthier community behavior.",
+            },
+            {
+               title: "Responsive interface",
+               description: "Designed and tested across mobile, tablet, and desktop layouts so the platform feels usable on real devices.",
+            },
+            {
+               title: "Sports data architecture",
+               description: "Prepared information architecture for NBA, NFL, MLB, Premier League, and MLS data including teams, leagues, updates, and future event-driven prompts.",
+            },
+            {
+               title: "Supabase backend",
+               description: "Uses Supabase authentication, Postgres database persistence, Row Level Security, and realtime-ready social data structures.",
+            },
+            {
+               title: "Deployment workflow",
+               description: "Built, tested, deployed, and updated through Next.js, TypeScript, React, Tailwind CSS, Supabase, GitHub, and Vercel.",
+            },
          ],
 
-         developmentFocus:
-            "FrontOffice became my largest public-facing software project and gave me experience designing both the interface and the underlying product system. The work included authentication, relational social data, responsive UI design, notification delivery, user preferences, moderation, sports data architecture, production debugging, deployment, and testing with real users across different devices.",
+         myRole: [
+            "I designed and built FrontOffice as a solo product engineer, owning the product strategy, UX direction, frontend architecture, backend integration, database-backed social features, testing, and deployment.",
+            "The project required designing more than screens. I had to think through user identity, team selection, profile behavior, social relationships, content persistence, notification delivery, moderation, blocking, and how receipts should preserve sports opinions over time.",
+            "I also tested the app with real users across different devices, using feedback to improve onboarding, mobile usability, interaction clarity, notification behavior, and the overall social experience.",
+         ],
+
+         engineeringHighlights: [
+            "Built a full-stack social platform with Next.js, React, TypeScript, Tailwind CSS, Supabase, and Vercel",
+            "Implemented authentication, email verification, protected routes, onboarding, and persistent user sessions",
+            "Designed relational data models for profiles, posts, comments, replies, votes, bookmarks, follows, notifications, and receipts",
+            "Added Row Level Security policies for user-owned data and safer backend access patterns",
+            "Built a Receipt system that preserves predictions and connects them back to original discussions",
+            "Implemented public profiles with editable usernames, bios, profile images, and team identity",
+            "Added following and follower relationships to support a sports-centered social graph",
+            "Built in-app notifications, browser push notification support, and notification preferences",
+            "Added reporting, blocking, moderation, and rate-limit protection for safer community interaction",
+            "Designed responsive layouts across mobile, tablet, and desktop breakpoints",
+            "Prepared sports data architecture for NBA, NFL, MLB, Premier League, and MLS integration",
+            "Tested user flows across onboarding, posting, comments, voting, bookmarks, follows, receipts, notifications, and profile management",
+         ],
+
+         designPrinciples: [
+            "Give fans a role, not just a feed.",
+            "Every take should have context.",
+            "Receipts make opinions matter over time.",
+            "The app should give users something to react to.",
+            "Social features need safety and boundaries.",
+            "Mobile has to feel first-class.",
+         ],
+
+         portfolioSummary: [
+            "FrontOffice demonstrates my ability to design and build a live full-stack consumer software product with authentication, database persistence, social interactions, notifications, moderation, responsive UI, and real-user testing.",
+            "The project shows product thinking beyond the interface: user identity, social loops, community behavior, data relationships, safety patterns, and the next step of connecting live sports data to drive personalized engagement.",
+         ],
 
          currentStatus:
-            "FrontOffice is currently live and undergoing active user testing. I am collecting feedback from real users, fixing onboarding and mobile issues, improving notification delivery, refining the social experience, and preparing the application for continued public use.",
+            "FrontOffice is currently live and undergoing active user testing. The backend social platform and Receipts system are implemented and tested. The next major phase is integrating live sports data so users can react to real team news, injuries, schedules, standings, transactions, transfers, and event-driven prompts.",
 
          metadata: {
             status: "Live / Active Testing",
 
-            stack: "Next.js · React · TypeScript · Tailwind CSS · Supabase · Vercel",
+            stack: "Next.js · React · TypeScript · Tailwind CSS · Supabase · Postgres · Auth · Realtime Data · GitHub · Vercel",
 
-            role: "Product Design · UX · Frontend Engineering · Backend Integration",
+            role: "Product Strategy · UX · Frontend Engineering · Backend Integration · Social Platform Architecture · Testing · Deployment",
          },
       },
    },
