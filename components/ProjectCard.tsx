@@ -9,6 +9,14 @@ type ProjectCardProps = {
    index?: number;
 };
 
+function renderParagraphs(text: string) {
+   return text.split("\n\n").map((paragraph) => (
+      <p key={paragraph} className="mt-3 text-base leading-7 text-[#5B6475]">
+         {paragraph}
+      </p>
+   ));
+}
+
 export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
    // Controls the existing same-page project detail expansion.
    const [isExpanded, setIsExpanded] = useState(false);
@@ -117,7 +125,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             </div>
 
             {/* Card actions */}
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                {/* Live application link */}
                <a
                   href={project.liveUrl}
@@ -139,6 +147,31 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                >
                   {project.liveActionLabel}
                </a>
+
+               {/* Optional GitHub link */}
+               {project.githubUrl && (
+                  <a
+                     href={project.githubUrl}
+                     target="_blank"
+                     rel="noreferrer"
+                     className="
+                inline-flex min-h-11 items-center justify-center
+                rounded-full
+                border border-[#111827]
+                bg-white
+                px-5 py-3
+                text-sm font-semibold
+                text-[#111827]
+                transition
+                hover:bg-[#FAF7F0]
+                focus:outline-none
+                focus-visible:ring-4
+                focus-visible:ring-[#111827]/15
+              "
+                  >
+                     {project.githubActionLabel ?? "View GitHub"}
+                  </a>
+               )}
 
                {/* Same-page expanded details button */}
                <button
@@ -191,7 +224,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                         Overview
                      </h4>
 
-                     <p className="mt-3 text-base leading-7 text-[#5B6475]">{project.details.overview}</p>
+                     {renderParagraphs(project.details.overview)}
                   </section>
 
                   {/* Optional problem section */}
@@ -208,7 +241,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                            Problem
                         </h4>
 
-                        <p className="mt-3 text-base leading-7 text-[#5B6475]">{project.details.problem}</p>
+                        {renderParagraphs(project.details.problem)}
                      </section>
                   )}
 
@@ -226,11 +259,78 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                            Core Idea
                         </h4>
 
-                        <p className="mt-3 text-base leading-7 text-[#5B6475]">{project.details.coreIdea}</p>
+                        {renderParagraphs(project.details.coreIdea)}
                      </section>
                   )}
 
-                  {/* FrontOffice feature summary */}
+                  {/* MK section */}
+                  {project.details.mkSection && (
+                     <section aria-labelledby={`${project.id}-mk-section`}>
+                        <h4
+                           id={`${project.id}-mk-section`}
+                           className="
+                    text-xl font-semibold
+                    tracking-tight
+                    text-[#111827]
+                  "
+                        >
+                           {project.details.mkSection.title}
+                        </h4>
+
+                        {renderParagraphs(project.details.mkSection.copy)}
+                     </section>
+                  )}
+
+                  {/* Project capabilities */}
+                  {project.details.capabilities && project.details.capabilities.length > 0 && (
+                     <section aria-labelledby={`${project.id}-capabilities`}>
+                        <h4
+                           id={`${project.id}-capabilities`}
+                           className="
+                      text-xl font-semibold
+                      tracking-tight
+                      text-[#111827]
+                    "
+                        >
+                           Key Capabilities
+                        </h4>
+
+                        <ul className="mt-4 grid gap-3 md:grid-cols-2">
+                           {project.details.capabilities.map((item) => (
+                              <li
+                                 key={item.title}
+                                 className="
+                          rounded-2xl
+                          border border-[#E7DCCB]
+                          bg-white
+                          p-4
+                        "
+                              >
+                                 <div className="flex items-start gap-3">
+                                    <span
+                                       aria-hidden="true"
+                                       className="
+                              mt-2
+                              h-2 w-2
+                              shrink-0
+                              rounded-full
+                              bg-[#1E40AF]
+                            "
+                                    />
+
+                                    <div>
+                                       <p className="font-semibold text-[#111827]">{item.title}</p>
+
+                                       <p className="mt-1 text-sm leading-6 text-[#5B6475]">{item.description}</p>
+                                    </div>
+                                 </div>
+                              </li>
+                           ))}
+                        </ul>
+                     </section>
+                  )}
+
+                  {/* FrontOffice / Portfolio feature summary */}
                   {project.details.whatIBuilt && project.details.whatIBuilt.length > 0 && (
                      <section aria-labelledby={`${project.id}-what-i-built`}>
                         <h4
@@ -277,6 +377,77 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                      </section>
                   )}
 
+                  {/* My role */}
+                  {project.details.myRole && project.details.myRole.length > 0 && (
+                     <section aria-labelledby={`${project.id}-my-role`}>
+                        <h4
+                           id={`${project.id}-my-role`}
+                           className="
+                    text-xl font-semibold
+                    tracking-tight
+                    text-[#111827]
+                  "
+                        >
+                           My Role
+                        </h4>
+
+                        <div className="space-y-3">
+                           {project.details.myRole.map((paragraph) => (
+                              <p key={paragraph} className="text-base leading-7 text-[#5B6475]">
+                                 {paragraph}
+                              </p>
+                           ))}
+                        </div>
+                     </section>
+                  )}
+
+                  {/* Engineering highlights */}
+                  {project.details.engineeringHighlights && project.details.engineeringHighlights.length > 0 && (
+                     <section aria-labelledby={`${project.id}-engineering`}>
+                        <h4
+                           id={`${project.id}-engineering`}
+                           className="
+                      text-xl font-semibold
+                      tracking-tight
+                      text-[#111827]
+                    "
+                        >
+                           Engineering Highlights
+                        </h4>
+
+                        <ul className="mt-4 grid gap-3 md:grid-cols-2">
+                           {project.details.engineeringHighlights.map((item) => (
+                              <li
+                                 key={item}
+                                 className="
+                          flex items-start gap-3
+                          rounded-2xl
+                          border border-[#E7DCCB]
+                          bg-white
+                          p-4
+                          text-sm
+                          leading-6
+                          text-[#5B6475]
+                        "
+                              >
+                                 <span
+                                    aria-hidden="true"
+                                    className="
+                            mt-2
+                            h-2 w-2
+                            shrink-0
+                            rounded-full
+                            bg-[#111827]
+                          "
+                                 />
+
+                                 <span>{item}</span>
+                              </li>
+                           ))}
+                        </ul>
+                     </section>
+                  )}
+
                   {/* Development focus */}
                   {project.details.developmentFocus && (
                      <section aria-labelledby={`${project.id}-development-focus`}>
@@ -291,11 +462,9 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                            Development Focus
                         </h4>
 
-                        {/* FrontOffice uses a paragraph */}
                         {typeof project.details.developmentFocus === "string" ? (
                            <p className="mt-3 text-base leading-7 text-[#5B6475]">{project.details.developmentFocus}</p>
                         ) : (
-                           // ALLEVIN continues to use its existing feature list.
                            <ul className="mt-4 grid gap-3 md:grid-cols-2">
                               {project.details.developmentFocus.map((item) => (
                                  <li
@@ -327,6 +496,66 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                               ))}
                            </ul>
                         )}
+                     </section>
+                  )}
+
+                  {/* Design principles */}
+                  {project.details.designPrinciples && project.details.designPrinciples.length > 0 && (
+                     <section aria-labelledby={`${project.id}-principles`}>
+                        <h4
+                           id={`${project.id}-principles`}
+                           className="
+                      text-xl font-semibold
+                      tracking-tight
+                      text-[#111827]
+                    "
+                        >
+                           Design Principles
+                        </h4>
+
+                        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                           {project.details.designPrinciples.map((principle) => (
+                              <li
+                                 key={principle}
+                                 className="
+                          rounded-2xl
+                          border border-[#E7DCCB]
+                          bg-[#FAF7F0]
+                          p-4
+                          text-sm
+                          font-semibold
+                          leading-6
+                          text-[#111827]
+                        "
+                              >
+                                 {principle}
+                              </li>
+                           ))}
+                        </ul>
+                     </section>
+                  )}
+
+                  {/* Portfolio summary */}
+                  {project.details.portfolioSummary && project.details.portfolioSummary.length > 0 && (
+                     <section aria-labelledby={`${project.id}-summary`}>
+                        <h4
+                           id={`${project.id}-summary`}
+                           className="
+                      text-xl font-semibold
+                      tracking-tight
+                      text-[#111827]
+                    "
+                        >
+                           Portfolio Summary
+                        </h4>
+
+                        <div className="space-y-3">
+                           {project.details.portfolioSummary.map((paragraph) => (
+                              <p key={paragraph} className="text-base leading-7 text-[#5B6475]">
+                                 {paragraph}
+                              </p>
+                           ))}
+                        </div>
                      </section>
                   )}
 
