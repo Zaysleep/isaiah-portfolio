@@ -73,6 +73,120 @@ export type Project = {
 
 export const projects: Project[] = [
    {
+      id: "kin",
+
+      name: "Kin",
+
+      subtitle: "Independent Software Studio",
+
+      status: "Live",
+
+      statusLabel: "Independent software studio and home of my digital products",
+
+      description: "Kin is my independent software studio where I design and build thoughtful digital products focused on clarity, usability, and long-term craftsmanship.",
+
+      image: "/images/kin-preview.png",
+
+      techTags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Git", "GitHub", "Vercel"],
+
+      liveUrl: "https://kin-gold.vercel.app/",
+
+      liveActionLabel: "View Website",
+
+      githubUrl: "https://github.com/Zaysleep/Kin",
+
+      githubActionLabel: "View GitHub",
+
+      details: {
+         overview:
+            "Kin is my independent software studio and the shared home for the products I design, build, and maintain.\n\nI created Kin to give my work a clear identity beyond a collection of unrelated projects. Each product can serve a different purpose while still sharing the same values: thoughtful design, understandable experiences, focused functionality, and careful long-term development.\n\nKin currently brings together products such as ALLEVIN and FrontOffice while providing room for future tools, experiments, and original digital experiences.\n\nThe studio website introduces the broader direction of the ecosystem and gives each product a place within one connected body of work.",
+
+         mkSection: {
+            title: "Building a Connected Product Studio",
+
+            copy: "Kin represents the next stage of my work as an independent product builder.\n\nInstead of presenting every application as a separate experiment, Kin creates a clear studio identity around the products I design and maintain. The goal is to build a small, thoughtful ecosystem where each product has its own purpose while sharing a consistent approach to usability, visual clarity, accessibility, and craftsmanship.\n\nThe current Kin website serves as the public home of the studio and introduces the products being developed under it.",
+         },
+
+         capabilities: [
+            {
+               title: "Studio identity",
+               description: "Creates a shared identity for the products I design, build, publish, and maintain independently.",
+            },
+            {
+               title: "Product ecosystem",
+               description: "Connects separate products under one studio while allowing each application to maintain its own purpose, audience, and visual character.",
+            },
+            {
+               title: "Editorial website",
+               description: "Uses a calm, magazine-inspired presentation to introduce the studio, communicate its values, and showcase its products.",
+            },
+            {
+               title: "Product storytelling",
+               description: "Presents each product through clear descriptions, visual previews, and focused explanations rather than overwhelming visitors with feature lists.",
+            },
+            {
+               title: "Responsive design",
+               description: "Maintains a clear and usable experience across desktop, tablet, and mobile screen sizes.",
+            },
+            {
+               title: "Accessible interface",
+               description: "Uses semantic structure, keyboard-friendly interactions, readable typography, visible focus states, and WCAG-conscious contrast.",
+            },
+            {
+               title: "Reusable architecture",
+               description: "Uses reusable React components and centralized product content so the studio can grow without requiring a complete redesign.",
+            },
+            {
+               title: "Independent deployment",
+               description: "Built, versioned, and deployed through Next.js, TypeScript, GitHub, and Vercel using the same workflow as the products within the studio.",
+            },
+         ],
+
+         myRole: [
+            "I created Kin as the independent studio behind my software products, owning the studio strategy, identity, website design, frontend development, content structure, accessibility decisions, and deployment.",
+            "The project required me to think beyond a single application and define how multiple products should relate to one another while still keeping their own identities.",
+            "I designed Kin to communicate a clear point of view: software should feel focused, understandable, and carefully made rather than crowded with unnecessary features.",
+         ],
+
+         engineeringHighlights: [
+            "Built the studio website with Next.js, React, TypeScript, and Tailwind CSS",
+            "Created a responsive single-page experience for desktop, tablet, and mobile",
+            "Designed reusable components for studio stories and product features",
+            "Organized product content so future Kin products can be added consistently",
+            "Maintained semantic HTML and keyboard-accessible navigation",
+            "Used WCAG-conscious contrast, readable typography, and visible interaction states",
+            "Connected the studio website to separately deployed products",
+            "Managed source control and deployment through GitHub and Vercel",
+            "Created a visual identity that can support future products without requiring a complete redesign",
+         ],
+
+         designPrinciples: [
+            "Thoughtful products over feature overload.",
+            "Clarity before complexity.",
+            "Every product should have a clear purpose.",
+            "Consistency should not erase personality.",
+            "Accessibility is part of product quality.",
+            "Build carefully enough to maintain it.",
+         ],
+
+         portfolioSummary: [
+            "Kin demonstrates my ability to think beyond an individual feature or application and build a broader product identity around a growing body of work.",
+            "The project combines product strategy, brand direction, interface design, responsive frontend development, accessibility, reusable architecture, and deployment into a public home for the products I build independently.",
+         ],
+
+         currentStatus: "Kin is live as the public home of my independent software studio. The current website introduces the studio and its initial products, with future updates planned as the Kin ecosystem grows.",
+
+         metadata: {
+            status: "Live",
+
+            stack: "Next.js · React · TypeScript · Tailwind CSS · Git · GitHub · Vercel",
+
+            role: "Studio Strategy · Product Direction · Brand Design · UX · Frontend Engineering · Accessibility · Deployment",
+         },
+      },
+   },
+
+   {
       id: "allevin",
 
       name: "ALLEVIN",
