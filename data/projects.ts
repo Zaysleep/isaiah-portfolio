@@ -187,11 +187,130 @@ export const projects: Project[] = [
    },
 
    {
+      id: "sidewalk",
+
+      name: "Sidewalk",
+
+      subtitle: "A Kin Product · Full-Stack City Guide",
+
+      status: "Live",
+
+      statusLabel: "Production-deployed editorial city guide built through Kin",
+
+      description:
+         "Sidewalk transforms a selected neighborhood, date, and a few activity preferences into a thoughtful two- or three-stop day. Its custom recommendation engine considers opening hours, distance, variety, previous results, and already selected places while keeping the experience calm and intentionally limited.",
+
+      image: "/images/sidewalk-preview.png",
+
+      techTags: ["Next.js", "React", "TypeScript", "CSS Modules", "Google Places API", "Vercel"],
+
+      liveUrl: "https://sidewalk-beta.vercel.app/",
+
+      liveActionLabel: "View Live App",
+
+      githubUrl: "https://github.com/Zaysleep/sidewalk",
+
+      githubActionLabel: "View GitHub",
+
+      details: {
+         overview:
+            "Sidewalk is a full-stack editorial city guide built around one core rule: help someone choose one worthwhile experience—not overwhelm them with every available option.\n\nThe application guides users through a clear planning flow from metro region to municipality, neighborhood or area, planning date, time of day, activity preference, curated recommendations, and a saved Sidewalk day.\n\nInstead of exposing raw search results, Sidewalk uses live Google Places data as the foundation for a custom recommendation system. It filters, scores, normalizes, and selects options based on opening hours, distance, activity fit, geographic coherence, experience variety, previous recommendations, and stops already added to the day.\n\nUsers can choose a thoughtful morning, afternoon, and evening, but a complete day requires only two stops. The optional third stop keeps the experience useful without pressuring users to overplan.",
+
+         mkSection: {
+            title: "Plan One Worthwhile Day",
+
+            copy: "Sidewalk began as a product-design question: how can a city guide help someone make one confident decision instead of presenting hundreds of interchangeable options?\n\nI designed the experience around a restrained planning flow and then built a custom recommendation layer over Google Places. Rather than displaying every available result, Sidewalk narrows the field to three curated recommendations at a time and explains why each option fits the selected neighborhood, planning date, time of day, activity direction, and existing plan.\n\nThe result is a production-deployed city guide that helps users build a thoughtful two- or three-stop day while preserving the calm, selective character of an editorial recommendation.",
+         },
+
+         capabilities: [
+            {
+               title: "Geography-first planning",
+               description: "Guides users through metro region, municipality, neighborhood or area, planning date, time of day, and activity preference before presenting recommendations.",
+            },
+            {
+               title: "Custom recommendation engine",
+               description: "Uses hard eligibility filters, quality scoring, activity matching, session-seeded weighted selection, adaptive search stages, and period-specific reasoning instead of displaying raw provider results.",
+            },
+            {
+               title: "Opening-hour awareness",
+               description: "Uses current opening hours for the destination’s local current date and regular hours with clearly qualified language for future planning dates.",
+            },
+            {
+               title: "Geographic coherence",
+               description: "Considers distance from the selected neighborhood and previously committed stops so the day remains practical rather than scattered.",
+            },
+            {
+               title: "Variety and duplicate protection",
+               description: "Avoids duplicate places, repeated brands, chain-heavy results, category repetition, and address or location similarity across the day.",
+            },
+            {
+               title: "Flexible two-stop completion",
+               description: "Marks a day as saved after two selected stops while allowing an optional third stop without pressuring users to fill every time period.",
+            },
+            {
+               title: "Session persistence",
+               description: "Preserves selected geography, planning date, activity directions, recommendations, refresh state, selected stops, and the completed day in the active browser session.",
+            },
+            {
+               title: "Production API safeguards",
+               description: "Uses server-only provider credentials, strict input validation, request limits, provider and browser timeouts, safe logging, bounded caches, request deduplication, and cost-conscious staged fetching.",
+            },
+            {
+               title: "Accessible interaction design",
+               description: "Includes semantic landmarks, keyboard-accessible controls and tabs, screen-reader announcements, visible focus states, reduced-motion support, focus management, and resilient narrow-screen behavior.",
+            },
+         ],
+
+         myRole: [
+            "I designed and developed Sidewalk independently from product concept through production deployment as the solo product designer and full-stack software engineer.",
+            "My work included product strategy, interaction design, responsive UI development, recommendation-system design, Google Places integration, server-side API architecture, browser-session persistence, accessibility, error recovery, performance safeguards, metadata, testing, GitHub source control, and Vercel deployment.",
+            "The project required work across the complete product stack: geography modeling, provider normalization, recommendation logic, date and opening-hour handling, responsive interactions, state management, API reliability, production metadata, and deployment.",
+         ],
+
+         engineeringHighlights: [
+            "Built a full-stack recommendation system over live Google Places data",
+            "Designed a metro-to-neighborhood planning flow with date-aware recommendations",
+            "Added opening-hour, distance, variety, duplicate, and committed-stop intelligence",
+            "Created a flexible two-stop completion model with an optional third stop",
+            "Implemented anonymous session persistence across browser refreshes",
+            "Added production API validation, timeouts, caching, deduplication, and cost safeguards",
+            "Completed responsive and keyboard-accessible interaction flows",
+            "Deployed through GitHub and Vercel with a server-only API-key architecture",
+         ],
+
+         designPrinciples: [
+            "Help someone choose one worthwhile experience—not every available option.",
+            "Calm decisions over endless browsing.",
+            "Explain why a recommendation is worth the user’s time.",
+            "A useful day does not need to be overplanned.",
+            "Live data should support curation, not replace product judgment.",
+            "Accessibility and reliability are part of the product architecture.",
+         ],
+
+         portfolioSummary: [
+            "Sidewalk demonstrates my ability to design and ship a production-minded full-stack product that combines live external data, custom recommendation logic, responsive interaction design, accessibility, state persistence, and server-side reliability safeguards.",
+            "The project shows that I can move beyond interface implementation and own the complete product system—from the user problem and visual direction to API boundaries, provider normalization, algorithmic selection, error recovery, metadata, testing, and deployment.",
+         ],
+
+         currentStatus:
+            "Sidewalk is live and undergoing active testing. The current production build supports geography-based planning, future dates, date-aware opening-hour guidance, custom place recommendations, two- or three-stop days, active-session persistence, responsive layouts, accessibility features, and production safeguards around the Google Places integration.",
+
+         metadata: {
+            status: "Live / Active Testing",
+
+            stack: "Next.js · React · TypeScript · CSS Modules · Google Places API · Serverless Route Handlers · Session Storage · Vercel",
+
+            role: "Solo Product Designer · Full-Stack Software Engineer · Recommendation Systems · API Integration · Accessibility · Testing · Deployment",
+         },
+      },
+   },
+
+   {
       id: "allevin",
 
       name: "ALLEVIN",
 
-      subtitle: "Adaptive Project Intelligence Workspace",
+      subtitle: "A Kin Product · Adaptive Project Intelligence Workspace",
 
       status: "Live / Active Testing",
 
@@ -312,7 +431,7 @@ export const projects: Project[] = [
 
       name: "FrontOffice",
 
-      subtitle: "Multi-Sport GM Social Platform",
+      subtitle: "Built by Kin · Multi-Sport GM Social Platform",
 
       status: "Live / Active Testing",
 
