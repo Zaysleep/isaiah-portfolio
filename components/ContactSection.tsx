@@ -39,7 +39,7 @@ const contactLinks = [
    {
       label: "Email",
       description: "Reach out directly for opportunities, feedback, or collaboration.",
-      href: "mailto:zaydidntwakeup@gmail.com",
+      href: "mailto:kinsoftwarecompany@gmail.com",
       isExternal: false,
    },
 ];
