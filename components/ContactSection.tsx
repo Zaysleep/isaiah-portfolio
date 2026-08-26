@@ -12,9 +12,11 @@ import ContactCard from "@/components/ContactCard";
    - End the page with a clean, confident call to connect.
 
    Design direction:
-   - Dark navy background creates a strong ending section.
+   - Soft ink navy keeps the ending section polished without feeling too dark.
    - Contact cards keep each action clear and easy to scan.
    - Links are simple, direct, and portfolio-friendly.
+   - The color stays visually connected to the rest of the portfolio while
+     maintaining strong text contrast and accessibility.
 */
 
 const contactLinks = [
@@ -46,7 +48,7 @@ const contactLinks = [
 
 export default function ContactSection() {
    return (
-      <section id="contact" className="bg-[#0B1020] px-6 py-20 md:py-28">
+      <section id="contact" className="bg-[#172033] px-6 py-20 md:py-28">
          <div className="mx-auto max-w-6xl">
             {/* Section intro */}
             <div className="mb-12 max-w-3xl">

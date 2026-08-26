@@ -34,6 +34,19 @@ export type ProjectDetails = {
       copy: string;
    };
 
+   // Optional architecture callout for projects with an important system boundary.
+   architecturePrinciple?: {
+      title: string;
+      copy: string;
+   };
+
+   // Optional compact architecture flow rendered inside expanded project details.
+   architectureFlow?: {
+      title: string;
+      description: string;
+      steps: string[];
+   };
+
    capabilities?: ProjectFeature[];
 
    myRole?: string[];
@@ -310,17 +323,18 @@ export const projects: Project[] = [
 
       name: "ALLEVIN",
 
-      subtitle: "A Kin Product · Adaptive Project Intelligence Workspace",
+      subtitle: "A Kin Product · Schedule-Aware Personal Life Assistant",
 
       status: "Live / Active Testing",
 
-      statusLabel: "Live project intelligence workspace currently in active testing",
+      statusLabel: "Live schedule-aware personal life assistant currently in active testing",
 
-      description: "A live project intelligence workspace that turns ideas, materials, decisions, milestones, and schedules into clear, context-aware guidance.",
+      description:
+         "A live personal life assistant that helps people understand their day, make changes conversationally, and get useful schedule-aware guidance without turning life into a productivity dashboard.",
 
       image: "/images/allevin-preview.png",
 
-      techTags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Local browser storage", "OpenAI integration", "Framer Motion", "Git", "GitHub", "Vercel"],
+      techTags: ["Next.js 16", "React", "TypeScript", "OpenAI API", "PWA", "Web Push", "Upstash Redis", "Cloudflare Workers", "Vercel"],
 
       liveUrl: "https://allevin.vercel.app/",
 
@@ -332,96 +346,130 @@ export const projects: Project[] = [
 
       details: {
          overview:
-            "ALLEVIN is an adaptive project workspace designed to help people move complex work forward without losing the reasoning behind it.\n\nInstead of treating every project like a checklist, ALLEVIN builds an understanding of the active project: its goal, current situation, confirmed decisions, open questions, constraints, risks, materials, milestones, and schedule.\n\nAIDock then works from that context like a senior project lead—assessing progress, identifying the most important unresolved decision, explaining why it matters, recommending a concrete next action, and maintaining continuity across follow-up questions.\n\nMK VIII focused on building the Project Intelligence Engine that connects project structure, memory, materials, milestone state, calendar context, and conversational guidance into one coordinated system.",
+            "ALLEVIN is a one-page, schedule-aware personal life assistant built to help someone understand their day, adjust when life changes, and decide what deserves attention next. The core experience stays intentionally calm: Up Next, Calendar, Coming Up, and Talk to ALLEVIN.\n\nUsers establish their normal week, including commitments, routines, free-time interests, bedtime, travel time, and preferred assistant style. Routines can be defined relative to commitments instead of fixed to a clock—for example, a commute can happen 20 minutes before Work or a wind-down routine can begin after Work ends. When the underlying commitment changes, ALLEVIN can adapt the dependent parts of the day with it.\n\nUsers can also make day-specific changes conversationally, such as adding a meeting, scheduling an appointment, leaving work early, skipping a routine, or moving something for one day. ALLEVIN distinguishes recurring schedule, routines, one-off events, temporary changes, completions, skips, cancellations, and other day-specific state so the current day can change without corrupting the normal routine.\n\nThe product intentionally avoids streaks, gamification, mood tracking, project-management clutter, and overwhelming dashboards. The goal is useful guidance with as little friction as possible.",
 
          mkSection: {
-            title: "MK VIII — Project Intelligence Engine",
+            title: "Life + Schedule Intelligence",
 
-            copy: "MK VIII moved ALLEVIN beyond basic project organization and into project-aware reasoning.\n\nThe system can now interpret long, unstructured project descriptions, organize the information into a usable project guide, track milestone progress, preserve important decisions, use uploaded materials as evidence, and adapt its guidance as the project changes.\n\nThe goal was not to make ALLEVIN more autonomous. The goal was to make it more dependable, context-aware, and useful as a project lead.",
+            copy:
+               "The current ALLEVIN architecture separates conversational interpretation from factual schedule truth. Natural language is useful for understanding what a person means, but dates, recurring commitments, relative routines, exceptions, completion state, and time calculations are resolved by deterministic application logic.\n\nThat separation lets ALLEVIN feel conversational without asking the language model to invent calendar state. The same life model then powers Up Next guidance, calendar readbacks, Coming Up, temporary schedule changes, and recommendations based on the time that is actually available.",
+         },
+
+         architecturePrinciple: {
+            title: "Architecture Principle",
+            copy: "The LLM interprets and phrases; deterministic ALLEVIN state, date, and schedule logic owns truth.",
+         },
+
+         architectureFlow: {
+            title: "Server-Side Notification Flow",
+            description:
+               "ALLEVIN can deliver scheduled reminders even when the installed iPhone PWA is closed. Notification plans are stored server-side, claimed atomically when due, and delivered through Web Push with duplicate protection.",
+            steps: [
+               "iPhone PWA",
+               "Web Push subscription",
+               "ALLEVIN notification plan",
+               "Upstash Redis",
+               "Cloudflare Worker scheduler",
+               "Vercel server endpoint",
+               "Web Push / VAPID",
+               "iPhone notification",
+            ],
          },
 
          capabilities: [
             {
-               title: "Project-aware intake",
-               description: "Transforms an unstructured project ramble into a clear goal, success criteria, current situation, decisions, open questions, constraints, notes, milestones, and recommended starting point.",
-            },
-            {
-               title: "Project Intelligence Engine",
-               description: "Builds a structured understanding of the active project and uses its current stage, dependencies, evidence, risks, decisions, and schedule to guide the work.",
-            },
-            {
-               title: "Senior project-lead guidance",
+               title: "Natural-language schedule editing",
                description:
-                  "AIDock can assess a project, identify the most important unresolved decision, recommend a specific next action, explain why it matters, challenge its own recommendation, and maintain the same line of reasoning across follow-up questions.",
+                  "Turns everyday phrases about meetings, appointments, early departures, and other changes into structured schedule updates while preserving deterministic date and time handling.",
             },
             {
-               title: "Milestone lifecycle",
-               description: "Tracks active and completed milestones, preserves milestone evidence, and changes its guidance when a project moves from planning into execution or completion.",
+               title: "Relative routine modeling",
+               description:
+                  "Supports routines that happen before or after commitments so dependent parts of the day can move when the underlying commitment changes.",
             },
             {
-               title: "Persistent project decisions",
-               description: "Retains budget limits, scope decisions, deferred options, operating rules, risks, and other durable project choices so they remain available later.",
+               title: "Schedule exceptions",
+               description:
+                  "Separates the normal recurring week from one-off events, temporary changes, skips, cancellations, completions, and other day-specific state.",
             },
             {
-               title: "Materials as evidence",
-               description: "Documents, images, notes, assessments, and references can support decisions, resolve open questions, influence milestone completion, and improve AIDock’s recommendations.",
+               title: "Context-aware Up Next",
+               description:
+                  "Uses the actual current day, remaining commitments, recent choices, available time, and user preferences to surface the most useful next guidance.",
             },
             {
-               title: "Calendar intelligence",
-               description: "Connects scheduled work to project context, distinguishes upcoming activity from expired events, and uses relevant calendar information when recommending what should happen next.",
+               title: "Adaptive lifestyle recommendations",
+               description:
+                  "Suggests useful ways to spend available time without forcing every interest or routine into a rigid task list.",
             },
             {
-               title: "Completed-project reasoning",
-               description: "Recognizes when a milestone sequence is complete and shifts from roadmap guidance into retrospective assessment, remaining-risk analysis, validation, and evidence-based reopening conditions.",
+               title: "Deterministic calendar readbacks",
+               description:
+                  "Keeps date-aware schedule responses grounded in application state instead of relying on the language model to decide factual calendar truth.",
             },
             {
-               title: "Cross-project isolation",
-               description: "Keeps project decisions, materials, milestones, calendar context, and conversations associated with the correct selected project.",
+               title: "Two-phase reminders",
+               description:
+                  "Plans a preparation reminder before an item based on deterministic importance and a second reminder when the item actually begins.",
+            },
+            {
+               title: "Closed-app Web Push",
+               description:
+                  "Uses a service worker, VAPID, Redis-backed notification plans, a minute-level Cloudflare scheduler, and Vercel server routes to deliver reminders when the PWA is not open.",
+            },
+            {
+               title: "Atomic notification claiming",
+               description:
+                  "Uses Redis claiming and duplicate protection so overlapping scheduler executions do not repeatedly send the same reminder.",
+            },
+            {
+               title: "Mobile-first PWA experience",
+               description:
+                  "Includes first-run onboarding, installable PWA behavior, responsive refinement, and a calm one-page interface designed around everyday phone use.",
             },
          ],
 
          myRole: [
-            "I designed and built ALLEVIN as a solo product engineer, owning the product strategy, interaction design, frontend architecture, local-first data model, project memory system, reasoning pipelines, calendar integration, testing, and deployment.",
-            "MK VIII required more than adding AI responses. I designed the underlying project model that separates facts, decisions, constraints, risks, evidence, milestones, and actions so the system can reason from project state rather than rely on generic prompts.",
-            "I also built and tested project flows across software, research, creative work, personal planning, physical workspaces, community programs, events, and completed projects to identify where the reasoning architecture generalized—and where it still relied too heavily on templates.",
+            "I designed and built ALLEVIN as a solo product engineer, owning the product direction, interaction model, frontend architecture, deterministic life and schedule engine, conversational layer, PWA behavior, notification infrastructure, testing, and deployment.",
+            "A major engineering decision was separating language understanding from schedule truth. The model helps interpret what a user means and phrase useful responses, while deterministic TypeScript logic owns dates, recurrence, relative routines, exceptions, completion state, and the final schedule represented by the product.",
+            "I also designed the server-side reminder system end to end, including notification planning, Redis-backed due state, atomic claiming, duplicate protection, a minute-level Cloudflare Worker scheduler, Vercel server routes, service-worker delivery, and Web Push/VAPID authentication.",
          ],
 
          engineeringHighlights: [
-            "Designed a canonical project context model across Projects, Canvas, Calendar, Materials, Memory, and AIDock",
-            "Built generalized project-intake and milestone-generation pipelines",
-            "Added persistent milestone, decision, risk, budget, and completion state",
-            "Connected uploaded materials to project reasoning and milestone evidence",
-            "Developed intent-specific AIDock response composition",
-            "Added conversational continuity for recommendations, challenges, comparisons, and follow-ups",
-            "Implemented time-aware calendar readbacks that ignore expired events",
-            "Built regression fixtures across multiple unrelated project types",
-            "Preserved a local-first architecture with user-controlled actions",
-            "Deployed and tested through Next.js, TypeScript, React, Tailwind CSS, GitHub, and Vercel",
+            "Built natural-language schedule editing with deterministic parsing before LLM fallback",
+            "Designed recurring commitments and routines that can be positioned relative to other schedule items",
+            "Implemented date-aware calendar readbacks and day-specific schedule exception handling",
+            "Built context-aware Up Next guidance and adaptive lifestyle recommendations",
+            "Created first-run onboarding and an installable mobile-first Progressive Web App experience",
+            "Built server-side Web Push using service workers, VAPID, Upstash Redis, Cloudflare Workers, and Vercel server routes",
+            "Implemented two-phase reminder planning with preparation and start-time notifications",
+            "Added atomic Redis claiming and duplicate-notification protection for overlapping scheduler runs",
          ],
 
          designPrinciples: [
-            "Useful first. Conversational second.",
-            "Think technically. Speak naturally.",
-            "Materials are evidence, not decoration.",
-            "A follow-up continues the previous thought.",
-            "Completion changes the guidance.",
-            "The user stays in control.",
+            "Understand the day before suggesting the next move.",
+            "Conversation should change state, not create another inbox.",
+            "Deterministic schedule logic owns truth.",
+            "Adapt the day without rewriting the normal routine.",
+            "Useful guidance should not require gamification.",
+            "The assistant should help without becoming intrusive.",
          ],
 
          portfolioSummary: [
-            "ALLEVIN demonstrates my ability to lead an ambiguous product from concept through interaction design, system architecture, implementation, regression testing, and live deployment.",
-            "The project combines full-stack product engineering, human-centered UX, local-first data design, AI-assisted reasoning, state management, and cross-feature architecture in a system designed to help real people make progress on complex work.",
+            "ALLEVIN demonstrates my ability to design and engineer a consumer product whose simple interface sits on top of deeper schedule, state, notification, and conversational systems.",
+            "The current product combines human-centered UX, deterministic scheduling, natural-language interaction, local-first life state, Progressive Web App behavior, server-side notification infrastructure, and production deployment in a system built to help real people navigate everyday changes with less friction.",
          ],
 
          currentStatus:
-            "ALLEVIN is live and undergoing active testing after the completion of MK VIII. The current focus is validating the Project Intelligence Engine across real project types, refining AIDock’s project-lead guidance, and improving how milestones, materials, decisions, and calendar context work together.",
+            "ALLEVIN is live and undergoing active testing as a schedule-aware personal life assistant. Current work focuses on validating conversational schedule changes, adaptive daily guidance, reminder timing and reliability, mobile PWA behavior, and the balance between useful assistance and a calm, non-intrusive experience.",
 
          metadata: {
             status: "Live / Active Testing",
 
-            stack: "Next.js · React · TypeScript · Tailwind CSS · Local browser storage · OpenAI integration · Framer Motion · Git · GitHub · Vercel",
+            stack:
+               "Next.js 16 · React · TypeScript · OpenAI API · Deterministic schedule engine · PWA · Service Worker · Web Push · VAPID · Upstash Redis · Cloudflare Workers · Vercel · GitHub",
 
-            role: "Product Strategy · UX · Frontend Engineering · Project Intelligence Architecture · Testing · Deployment",
+            role: "Product Strategy · UX · Frontend Engineering · Schedule Architecture · Notification Infrastructure · Testing · Deployment",
          },
       },
    },

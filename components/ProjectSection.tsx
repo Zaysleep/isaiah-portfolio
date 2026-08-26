@@ -48,8 +48,8 @@ export default function ProjectSection() {
               text-[#5B6475]
             "
                >
-                  These projects explore different sides of the work I enjoy: thoughtful AI-assisted workflows, full-stack social products, and the design systems that bring those ideas together. Different problems, same goal: build experiences that feel
-                  useful, focused, and worth coming back to.
+                  These projects are part of the growing Kin Software LLC product portfolio. Each one starts with a different problem, but follows the same approach: understand what people actually need, reduce unnecessary complexity, and build something
+                  thoughtful, useful, and made to last.
                </p>
             </div>
 

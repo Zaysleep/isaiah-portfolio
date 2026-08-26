@@ -281,6 +281,58 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                      </section>
                   )}
 
+                  {/* Optional architecture principle callout */}
+                  {project.details.architecturePrinciple && (
+                     <section aria-labelledby={`${project.id}-architecture-principle`}>
+                        <h4
+                           id={`${project.id}-architecture-principle`}
+                           className="text-xl font-semibold tracking-tight text-[#111827]"
+                        >
+                           {project.details.architecturePrinciple.title}
+                        </h4>
+
+                        <div className="mt-4 rounded-2xl border border-[#E7DCCB] bg-[#FAF7F0] p-5">
+                           <p className="text-base font-semibold leading-7 text-[#111827]">
+                              {project.details.architecturePrinciple.copy}
+                           </p>
+                        </div>
+                     </section>
+                  )}
+
+                  {/* Optional compact architecture flow */}
+                  {project.details.architectureFlow && (
+                     <section aria-labelledby={`${project.id}-architecture-flow`}>
+                        <h4
+                           id={`${project.id}-architecture-flow`}
+                           className="text-xl font-semibold tracking-tight text-[#111827]"
+                        >
+                           {project.details.architectureFlow.title}
+                        </h4>
+
+                        <p className="mt-3 text-base leading-7 text-[#5B6475]">
+                           {project.details.architectureFlow.description}
+                        </p>
+
+                        <ol className="mt-4 grid gap-2 sm:grid-cols-2">
+                           {project.details.architectureFlow.steps.map((step, stepIndex) => (
+                              <li
+                                 key={step}
+                                 className="flex items-center gap-3 rounded-2xl border border-[#E7DCCB] bg-white p-4"
+                              >
+                                 <span
+                                    aria-hidden="true"
+                                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EFF6FF] text-xs font-bold text-[#1E40AF]"
+                                 >
+                                    {stepIndex + 1}
+                                 </span>
+
+                                 <span className="text-sm font-medium leading-6 text-[#374151]">{step}</span>
+                              </li>
+                           ))}
+                        </ol>
+                     </section>
+                  )}
+
                   {/* Project capabilities */}
                   {project.details.capabilities && project.details.capabilities.length > 0 && (
                      <section aria-labelledby={`${project.id}-capabilities`}>
