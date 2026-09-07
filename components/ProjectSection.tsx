@@ -48,8 +48,8 @@ export default function ProjectSection() {
               text-[#5B6475]
             "
                >
-                  These projects are part of the growing Kin Software LLC product portfolio. Each one starts with a different problem, but follows the same approach: understand what people actually need, reduce unnecessary complexity, and build something
-                  thoughtful, useful, and made to last.
+                  These projects make up the growing Kin Software LLC product portfolio. Each explores a different problem—from everyday decisions and personal assistance to physical engineering—but they share the same philosophy: understand the problem,
+                  remove unnecessary complexity, and build technology that earns its place in someone’s life.
                </p>
             </div>
 
@@ -63,8 +63,8 @@ export default function ProjectSection() {
           "
             >
                {projects.map((project, index) => {
-                  // With three projects, the final card is centered beneath
-                  // the first two on large screens.
+                  // When the project count is odd, center the final card on large screens
+                  // so the board stays visually balanced as the Kin portfolio grows.
                   const isCenteredFinalCard = projects.length % 2 !== 0 && index === projects.length - 1;
 
                   return (

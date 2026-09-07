@@ -34,11 +34,12 @@ export default function HeroSection() {
             </div>
 
             {/* Main intro statement */}
-            <p className="max-w-2xl text-lg leading-8 text-[#5B6475] md:text-xl">I build responsive web apps that take busy ideas, messy workflows, and “wait, this could be better” moments and turn them into clean, useful experiences.</p>
+            <p className="max-w-2xl text-lg leading-8 text-[#5B6475] md:text-xl">I design and build software that turns complex ideas, messy systems, and “this could work better” problems into thoughtful, useful products.</p>
 
             {/* Thought-process statement */}
             <p className="max-w-2xl text-base leading-7 text-[#5B6475]">
-               My approach is simple: understand the problem, reduce the clutter, and build something people can actually use. Clean code matters, but clean experiences are what make the work stick.
+               My approach is simple: understand the problem, reduce unnecessary complexity, and engineer the right experience around it. Sometimes that means a web app, sometimes a native desktop tool, and sometimes a system working quietly underneath it
+               all.
             </p>
 
             {/* Same-page scroll link to Projects */}

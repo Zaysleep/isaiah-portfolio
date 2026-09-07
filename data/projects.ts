@@ -15,6 +15,13 @@ export type ProjectFeature = {
    description: string;
 };
 
+// Reusable titled sections for projects that need a little more case-study depth
+// without requiring a one-off page or component.
+export type ProjectCaseStudySection = {
+   title: string;
+   copy: string;
+};
+
 export type ProjectDetails = {
    overview: string;
 
@@ -27,6 +34,9 @@ export type ProjectDetails = {
 
    // Optional feature list.
    whatIBuilt?: string[];
+
+   // Reusable case-study sections for deeper engineering stories such as Bench.
+   caseStudySections?: ProjectCaseStudySection[];
 
    // Optional mature product/project sections.
    mkSection?: {
@@ -72,10 +82,16 @@ export type Project = {
    statusLabel: string;
    description: string;
    image: string;
+
+   // Most project previews use a photographic crop. Use "contain" for logo/identity
+   // artwork that should remain fully visible inside the existing card frame.
+   imageFit?: "cover" | "contain";
+
    techTags: string[];
 
-   liveUrl: string;
-   liveActionLabel: string;
+   // Desktop/local-first projects may not have a public live URL.
+   liveUrl?: string;
+   liveActionLabel?: string;
 
    // Optional source-code link.
    githubUrl?: string;
@@ -195,6 +211,167 @@ export const projects: Project[] = [
             stack: "Next.js · React · TypeScript · Tailwind CSS · Git · GitHub · Vercel",
 
             role: "Studio Strategy · Product Direction · Brand Design · UX · Frontend Engineering · Accessibility · Deployment",
+         },
+      },
+   },
+
+
+   {
+      id: "bench",
+
+      name: "Bench",
+
+      subtitle: "A Kin Product · Local-First Desktop Engineering Workspace",
+
+      status: "MK VII · Prototype Handoff Validated",
+
+      statusLabel: "Bench MK VII is a local-first desktop engineering workspace validated through a Raspberry Pi enclosure prototype handoff",
+
+      description:
+         "Bench helps builders reason through physical projects before fabrication. It brings component definition, 3D assembly, engineering evidence, compatibility checks, native physical interaction, and fabrication handoff into one local desktop workspace.",
+
+      image: "/images/bench-preview.png",
+
+      // Keep the full Bench identity artwork visible rather than cropping it like a screenshot.
+      imageFit: "contain",
+
+      techTags: ["React", "TypeScript", "Three.js", "Tauri 2", "Rust", "C++20", "OpenCV", "Objective-C++", "Apple Vision"],
+
+      details: {
+         overview:
+            "Bench by Kin is a local-first desktop engineering workspace for thinking through and physically prototyping hardware projects. It sits between an early idea and specialist tools such as CAD, simulation software, slicers, and professional engineering review.\n\nInstead of treating a physical project as only a 3D model, Bench keeps the parts, dimensions, evidence, relationships, constraints, compatibility state, and fabrication decisions together as one engineering workspace. The goal is to make uncertainty visible and help a builder understand what is known, what still needs evidence, and what should happen before fabrication.",
+
+         problem:
+            "Early hardware projects often spread important information across sketches, browser tabs, spreadsheets, CAD files, datasheets, and memory. That makes it easy to lose track of whether parts actually fit, whether power relationships make sense, what dimensions are measured versus assumed, and what remains unresolved before a prototype is made.\n\nI built Bench to create one calm place to reason about the complete physical system before handing work off to fabrication or more specialized engineering tools.",
+
+         coreIdea:
+            "Shape → Assemble → Test → Make. A builder defines the physical pieces, assembles them in a 3D workspace, records how they relate, tests the recorded engineering state, and then creates a fabrication handoff with unresolved evidence clearly called out.",
+
+         mkSection: {
+            title: "Shape → Assemble → Test → Make",
+            copy:
+               "Shape defines components, dimensions, categories, manufacturer/model information, engineering evidence, connectors, voltage, power, mass, heat-source information, and thermal approaches.\n\nAssemble places and rotates parts in 3D, records relationships such as powers, connects-to, cools, and mounted-inside, and adds assembly constraints such as minimum clearances.\n\nTest evaluates the recorded project through checks for collision, enclosure fit, clearance, voltage, power budget, thermal planning, mass, connector compatibility, and evidence quality. Results are separated into Needs attention, Waiting, and Good so the interface distinguishes a problem from missing information.\n\nMake turns the validated state into a prototype handoff with fabrication method, 3D-print material and process, BOM, production notes, unresolved evidence, and Markdown export.",
+         },
+
+         architecturePrinciple: {
+            title: "Local First, With a Trusted Native Boundary",
+            copy:
+               "Bench is designed to remain useful as a local desktop engineering tool even when its optional Partner is disconnected. Rust owns trusted desktop operations such as project file I/O, production-handoff writing, secure Partner communication, and native bridges instead of exposing those responsibilities directly to the React layer.",
+         },
+
+         architectureFlow: {
+            title: "Multi-Language Desktop Architecture",
+            description:
+               "The architecture deliberately combines a web-style application interface with native desktop security, file handling, computer vision, and physical interaction.",
+            steps: [
+               "React + TypeScript + Vite — application UI and engineering state",
+               "Three.js + React Three Fiber — interactive 3D engineering workspace",
+               "Tauri 2 + Rust — trusted desktop shell, native commands, file I/O, secure bridges",
+               "C++20 + OpenCV + Objective-C++ + Apple Vision — native tracking and macOS framework integration",
+               "npm + Cargo + CMake — frontend, Rust, and native-core build systems",
+               "Tauri packaging — macOS .app/.dmg and required privacy configuration",
+            ],
+         },
+
+         caseStudySections: [
+            {
+               title: "The .bench Project Format",
+               copy:
+                  "Bench uses its own .bench project format as the local record of an engineering workspace. A .bench file preserves more than geometry: it stores the project name and goal, fabrication setup, parts and ordering, dimensions, 3D transforms, visibility, engineering evidence, relationships, assembly constraints, compatibility/Test state, project decisions, Partner context, and Make/production information.\n\nProjects are designed to be reopened locally and continued with that engineering context intact.",
+            },
+            {
+               title: "Native Hand + Puck Interaction",
+               copy:
+                  "Bench supports mouse and keyboard movement alongside physical Hand and Puck interaction modes, including Vertical Lift control. Tracking data moves through the native C++/Objective-C++ layer into Rust and then into the TypeScript application. The browser-style UI does not directly own camera or hardware access; the native layers keep those responsibilities at the desktop boundary.",
+            },
+            {
+               title: "Ask Bench + Secure Partner Communication",
+               copy:
+                  "Ask Bench is an optional context-aware Partner that can reason from the project actually recorded in Bench instead of treating the build as a generic chat topic. Requests are routed through Rust to the OpenAI Responses API, and the API credential is stored in the macOS Keychain rather than exposed to React. Bench remains usable locally without Partner connected.",
+            },
+            {
+               title: "What MK VII Proved",
+               copy:
+                  "MK VII was validated with a compact Raspberry Pi-based Kin assistant enclosure. That project exercised enclosure packing, battery and power relationships, cellular modem and antenna relationships, cooling, clearances, thermal planning, Test analysis, and a PETG/FDM prototype handoff. The validation project helped expose missing engineering evidence and workflow gaps while proving that Bench could carry one physical build from recorded components through a fabrication-ready prototype handoff.",
+            },
+         ],
+
+         capabilities: [
+            {
+               title: "Engineering evidence",
+               description: "Tracks dimensions and engineering claims as Unknown, Estimated, Measured, or Verified instead of presenting assumptions as certainty.",
+            },
+            {
+               title: "3D assembly workspace",
+               description: "Supports full part positioning and rotation, camera orbit/zoom, visibility controls, Parts ordering, and mouse/keyboard movement.",
+            },
+            {
+               title: "Physical relationships",
+               description: "Records connectors, connector compatibility, power relationships, mounted-inside relationships, cooling relationships, and assembly constraints.",
+            },
+            {
+               title: "Engineering Test",
+               description: "Separates Needs attention, Waiting, and Good while checking collision, fit, clearance, voltage, power, thermal, mass, connectors, and evidence state.",
+            },
+            {
+               title: "Prototype vs. production readiness",
+               description: "Keeps prototype-readiness distinct from production-review readiness so an early build is not mistaken for a manufacturing sign-off.",
+            },
+            {
+               title: "Make workflow",
+               description: "Records fabrication method, material, print process, BOM, production notes, unresolved evidence, and production/prototype handoff information.",
+            },
+            {
+               title: "Local project continuity",
+               description: "Saves the engineering workspace in a custom .bench file so projects can be reopened and continued locally.",
+            },
+            {
+               title: "Optional project-aware Partner",
+               description: "Provides reasoning from the actual project context while keeping credentials and secure communication behind the native Rust boundary.",
+            },
+         ],
+
+         myRole: [
+            "I designed and built Bench as a Kin desktop product, owning the product model, UX, engineering workflow, 3D interaction model, project-file design, desktop/native architecture, Partner integration, and validation process.",
+            "The project required me to work across React and TypeScript for the application experience, Rust and Tauri for the trusted desktop shell, and C++/Objective-C++ for native computer-vision and Apple framework integration.",
+            "I also used the Raspberry Pi enclosure project as an ongoing real-world validation case so engineering decisions were tested against an actual physical system rather than only synthetic demos.",
+         ],
+
+         engineeringHighlights: [
+            "Designed a custom .bench format that persists project structure, transforms, engineering evidence, relationships, constraints, decisions, and Make state",
+            "Built an interactive Three.js / React Three Fiber work surface for 3D part placement, rotation, visibility, and camera control",
+            "Implemented deterministic engineering checks for collision, enclosure fit, clearance, voltage, power budget, thermal planning, mass, connector compatibility, and evidence quality",
+            "Separated Needs attention, Waiting, and Good so missing evidence is not incorrectly reported as an engineering failure",
+            "Integrated physical Puck and Hand interaction through native C++20, OpenCV, Objective-C++, Apple Vision, Rust, and TypeScript layers",
+            "Kept project file I/O, secure native commands, and production-handoff writing behind the Tauri/Rust desktop boundary",
+            "Routed OpenAI Responses API requests through Rust and stored the API credential in the macOS Keychain",
+            "Built independent frontend, Rust, and native-core build paths with npm, Cargo, CMake, and Tauri packaging",
+            "Validated the workflow against a Raspberry Pi enclosure project through PETG/FDM prototype handoff",
+         ],
+
+         designPrinciples: [
+            "Engineering evidence should be explicit; the software should not invent certainty.",
+            "The physical object stays central while tools and context change around it.",
+            "Plain-language answers come first, with technical depth available underneath.",
+            "Local project ownership should not depend on an AI connection.",
+            "Prototype readiness and production readiness are different claims.",
+            "Bench should complement specialist engineering tools, not pretend to replace them.",
+         ],
+
+         portfolioSummary: [
+            "Bench demonstrates my ability to design and engineer a desktop product that crosses interface design, 3D interaction, local persistence, native security boundaries, computer vision, hardware interaction, deterministic engineering logic, and optional AI assistance.",
+            "It is also an example of how I approach complex software systems: keep the user-facing workflow understandable while giving the underlying engineering model enough structure to represent uncertainty, evidence, relationships, and real physical constraints.",
+         ],
+
+         currentStatus:
+            "MK VII ends at a validated prototype handoff. Bench does not currently generate finished STL/3MF files, slicer toolpaths, production drawings, or certified manufacturing tolerances. MK VIII is planned to focus on fabrication geometry and 3D printing: turning validated engineering envelopes and assembly information into actual enclosure geometry with walls, lids, mounts, cutouts, ventilation, manufacturing clearances, and eventually printable output.",
+
+         metadata: {
+            status: "MK VII · Prototype Handoff Validated",
+
+            stack: "React · TypeScript · Vite · Three.js · React Three Fiber · Tauri 2 · Rust · C++20 · OpenCV · Objective-C++ · Apple Vision · OpenAI Responses API · Cargo · CMake",
+
+            role: "Product Design · UX · Desktop Engineering · 3D Interaction · Native Integration · Computer Vision · Local Persistence · AI Integration · Validation",
          },
       },
    },

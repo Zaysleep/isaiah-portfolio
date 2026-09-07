@@ -64,13 +64,13 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             (max-width: 1200px) 50vw,
             600px
           "
-               className="
-            object-cover
+               className={`
+            ${project.imageFit === "contain" ? "object-contain p-5 sm:p-7" : "object-cover"}
             transition duration-500
             hover:scale-[1.02]
             motion-reduce:transform-none
             motion-reduce:transition-none
-          "
+          `}
                priority={index === 0}
             />
          </div>
@@ -126,27 +126,30 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
             {/* Card actions */}
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-               {/* Live application link */}
-               <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="
-              inline-flex min-h-11 items-center justify-center
-              rounded-full
-              bg-[#E76F51]
-              px-5 py-3
-              text-sm font-semibold
-              text-white
-              transition
-              hover:bg-[#D85F43]
-              focus:outline-none
-              focus-visible:ring-4
-              focus-visible:ring-[#E76F51]/30
-            "
-               >
-                  {project.liveActionLabel}
-               </a>
+               {/* Public live link is optional because local-first desktop projects,
+                   such as Bench, may not have a browser deployment. */}
+               {project.liveUrl && (
+                  <a
+                     href={project.liveUrl}
+                     target="_blank"
+                     rel="noreferrer"
+                     className="
+                inline-flex min-h-11 items-center justify-center
+                rounded-full
+                bg-[#E76F51]
+                px-5 py-3
+                text-sm font-semibold
+                text-white
+                transition
+                hover:bg-[#D85F43]
+                focus:outline-none
+                focus-visible:ring-4
+                focus-visible:ring-[#E76F51]/30
+              "
+                  >
+                     {project.liveActionLabel ?? "View Live Project"}
+                  </a>
+               )}
 
                {/* Optional GitHub link */}
                {project.githubUrl && (
@@ -280,6 +283,27 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                         {renderParagraphs(project.details.mkSection.copy)}
                      </section>
                   )}
+
+                  {/* Optional reusable case-study sections.
+                      These let deeper engineering projects add titled narrative sections
+                      while staying inside the shared ProjectCard visual system. */}
+                  {project.details.caseStudySections && project.details.caseStudySections.length > 0 &&
+                     project.details.caseStudySections.map((section, sectionIndex) => {
+                        const sectionId = `${project.id}-case-study-${sectionIndex}`;
+
+                        return (
+                           <section key={section.title} aria-labelledby={sectionId}>
+                              <h4
+                                 id={sectionId}
+                                 className="text-xl font-semibold tracking-tight text-[#111827]"
+                              >
+                                 {section.title}
+                              </h4>
+
+                              {renderParagraphs(section.copy)}
+                           </section>
+                        );
+                     })}
 
                   {/* Optional architecture principle callout */}
                   {project.details.architecturePrinciple && (
