@@ -48,8 +48,8 @@ export default function ProjectSection() {
               text-[#5B6475]
             "
                >
-                  These projects make up the growing Kin Software LLC product portfolio. Each explores a different problem—from everyday decisions and personal assistance to physical engineering—but they share the same philosophy: understand the problem,
-                  remove unnecessary complexity, and build technology that earns its place in someone’s life.
+                  These projects make up the growing Kin Software LLC product portfolio. They range from software and intelligent systems to engineering tools and physical products, but share the same approach: understand the problem, reduce unnecessary complexity,
+                  and build technology that earns its place in someone’s life.
                </p>
             </div>
 

@@ -30,16 +30,15 @@ export default function HeroSection() {
             <div className="space-y-4">
                <h1 className="max-w-3xl text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-[#111827] md:text-7xl lg:text-8xl">Isaiah Brown</h1>
 
-               <p className="text-xl font-semibold text-[#1E40AF] md:text-2xl">Software Developer & UX-Focused Builder</p>
+               <p className="text-xl font-semibold text-[#1E40AF] md:text-2xl">Software & Product Engineer · UX-Focused Builder</p>
             </div>
 
             {/* Main intro statement */}
-            <p className="max-w-2xl text-lg leading-8 text-[#5B6475] md:text-xl">I design and build software that turns complex ideas, messy systems, and “this could work better” problems into thoughtful, useful products.</p>
+            <p className="max-w-2xl text-lg leading-8 text-[#5B6475] md:text-xl">I design and build products that turn complex ideas, messy systems, and “this could work better” problems into thoughtful, useful experiences.</p>
 
             {/* Thought-process statement */}
             <p className="max-w-2xl text-base leading-7 text-[#5B6475]">
-               My approach is simple: understand the problem, reduce unnecessary complexity, and engineer the right experience around it. Sometimes that means a web app, sometimes a native desktop tool, and sometimes a system working quietly underneath it
-               all.
+               My work increasingly crosses software, UX, hardware, and physical prototyping. I like understanding the whole system—how something works, how someone interacts with it, and what it takes to move an idea from a screen into something people can actually use.
             </p>
 
             {/* Same-page scroll link to Projects */}

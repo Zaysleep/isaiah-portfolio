@@ -128,7 +128,7 @@ export const projects: Project[] = [
 
       details: {
          overview:
-            "Kin is my independent software studio and the shared home for the products I design, build, and maintain.\n\nI created Kin to give my work a clear identity beyond a collection of unrelated projects. Each product can serve a different purpose while still sharing the same values: thoughtful design, understandable experiences, focused functionality, and careful long-term development.\n\nKin currently brings together products such as ALLEVIN and FrontOffice while providing room for future tools, experiments, and original digital experiences.\n\nThe studio website introduces the broader direction of the ecosystem and gives each product a place within one connected body of work.",
+            "Kin is my independent software studio and the shared home for the products I design, build, and maintain.\n\nI created Kin to give my work a clear identity beyond a collection of unrelated projects. Each product can serve a different purpose while still sharing the same values: thoughtful design, understandable experiences, focused functionality, and careful long-term development.\n\nKin now brings together software, engineering tools, and physical product experiments including Bench, Kin Film, Sidewalk, ALLEVIN, and FrontOffice while providing room for future products and original experiences.\n\nThe studio website introduces the broader direction of the ecosystem and gives each product a place within one connected body of work.",
 
          mkSection: {
             title: "Building a Connected Product Studio",
@@ -200,7 +200,7 @@ export const projects: Project[] = [
 
          portfolioSummary: [
             "Kin demonstrates my ability to think beyond an individual feature or application and build a broader product identity around a growing body of work.",
-            "The project combines product strategy, brand direction, interface design, responsive frontend development, accessibility, reusable architecture, and deployment into a public home for the products I build independently.",
+            "The project combines product strategy, brand direction, interface design, responsive frontend development, accessibility, reusable architecture, and deployment into a public home for work that now spans software, native engineering tools, and physical product development.",
          ],
 
          currentStatus: "Kin is live as the public home of my independent software studio. The current website introduces the studio and its initial products, with future updates planned as the Kin ecosystem grows.",
@@ -225,7 +225,7 @@ export const projects: Project[] = [
 
       status: "MK VII · Prototype Handoff Validated",
 
-      statusLabel: "Bench MK VII is a local-first desktop engineering workspace validated through a Raspberry Pi enclosure prototype handoff",
+      statusLabel: "Bench MK VII is a local-first desktop engineering workspace validated through Raspberry Pi and Kin Film physical prototype workflows",
 
       description:
          "Bench helps builders reason through physical projects before fabrication. It brings component definition, 3D assembly, engineering evidence, compatibility checks, native physical interaction, and fabrication handoff into one local desktop workspace.",
@@ -294,6 +294,11 @@ export const projects: Project[] = [
                copy:
                   "MK VII was validated with a compact Raspberry Pi-based Kin assistant enclosure. That project exercised enclosure packing, battery and power relationships, cellular modem and antenna relationships, cooling, clearances, thermal planning, Test analysis, and a PETG/FDM prototype handoff. The validation project helped expose missing engineering evidence and workflow gaps while proving that Bench could carry one physical build from recorded components through a fabrication-ready prototype handoff.",
             },
+            {
+               title: "Physical Product Validation — Kin Film",
+               copy:
+                  "Kin Film became a second real-world validation of Bench's role in the physical product workflow. I used Bench to reason through the camera enclosure, component placement, physical openings, and fabrication considerations before moving the design into slicing and 3D printing. The camera then progressed through printing, assembly, firmware integration, and physical testing into a working prototype. Bench did not generate the finished printable geometry; its role was the engineering workspace before specialist fabrication tools. Kin Film demonstrates how that handoff can contribute to a complete path from recorded engineering decisions to an assembled physical product.",
+            },
          ],
 
          capabilities: [
@@ -347,6 +352,7 @@ export const projects: Project[] = [
             "Routed OpenAI Responses API requests through Rust and stored the API credential in the macOS Keychain",
             "Built independent frontend, Rust, and native-core build paths with npm, Cargo, CMake, and Tauri packaging",
             "Validated the workflow against a Raspberry Pi enclosure project through PETG/FDM prototype handoff",
+            "Used Bench during Kin Film enclosure development before slicing, 3D printing, assembly, and physical prototype validation",
          ],
 
          designPrinciples: [
@@ -360,7 +366,7 @@ export const projects: Project[] = [
 
          portfolioSummary: [
             "Bench demonstrates my ability to design and engineer a desktop product that crosses interface design, 3D interaction, local persistence, native security boundaries, computer vision, hardware interaction, deterministic engineering logic, and optional AI assistance.",
-            "It is also an example of how I approach complex software systems: keep the user-facing workflow understandable while giving the underlying engineering model enough structure to represent uncertainty, evidence, relationships, and real physical constraints.",
+            "It is also an example of how I approach complex software systems: keep the user-facing workflow understandable while giving the underlying engineering model enough structure to represent uncertainty, evidence, relationships, and real physical constraints. Kin Film extended that validation into a completed working camera prototype after the Bench-to-fabrication handoff.",
          ],
 
          currentStatus:
@@ -372,6 +378,143 @@ export const projects: Project[] = [
             stack: "React · TypeScript · Vite · Three.js · React Three Fiber · Tauri 2 · Rust · C++20 · OpenCV · Objective-C++ · Apple Vision · OpenAI Responses API · Cargo · CMake",
 
             role: "Product Design · UX · Desktop Engineering · 3D Interaction · Native Integration · Computer Vision · Local Persistence · AI Integration · Validation",
+         },
+      },
+   },
+
+   // Kin Film is intentionally placed directly after Bench. Together they show the
+   // relationship between the engineering workspace and a completed physical prototype.
+   {
+      id: "kin-film",
+
+      name: "Kin Film",
+
+      subtitle: "A Kin Product · Digital Film Camera / Physical Prototype",
+
+      status: "Working Physical Prototype",
+
+      statusLabel: "Kin Film is a working physical digital camera prototype with custom firmware, interface, controls, enclosure, and phone transfer",
+
+      description:
+         "A working digital film-style camera developed across embedded hardware, firmware, UX, camera behavior, enclosure design, 3D printing, assembly, and testing.",
+
+      image: "/images/kin-film-preview.jpg",
+
+      // The source artwork is a tall capture of the Kin Film gallery. Keeping it
+      // contained preserves the interface and film-inspired visual identity.
+      imageFit: "contain",
+
+      techTags: ["ESP32-S3", "OV3660", "Embedded Firmware", "ST7789", "microSD", "Wi-Fi", "3D Printing", "PETG", "Bench"],
+
+      details: {
+         overview:
+            "Kin Film began as an exploration of what a small digital camera could feel like if the experience borrowed more from shooting a roll of film than using a modern smartphone. It grew from an interface idea into a working physical prototype.\n\nI developed the project across embedded hardware, firmware, interaction design, camera behavior, enclosure design, 3D printing, physical assembly, and testing. The finished prototype powers on, accepts a physical shutter input, runs a custom Kin Film interface, tracks a limited roll of exposures, captures photographs, supports transfer to a phone, and operates inside a purpose-built 3D-printed enclosure.\n\nThe project became an important milestone because the interface could not be designed separately from the hardware. Component dimensions affected the enclosure, button placement affected interaction, camera behavior affected the UI, and fabrication decisions affected how the product could actually be assembled and used.",
+
+         problem:
+            "Modern phone cameras make capture nearly unlimited and invisible. Kin Film explores a different interaction: a small dedicated camera with physical controls, a limited roll, and a deliberate review/transfer experience. Building that idea required the software, electronics, enclosure, and physical interaction to work as one product rather than as separate design exercises.",
+
+         coreIdea:
+            "Create a compact digital camera with the intentional feel of shooting a limited roll: physical shutter, clear exposure count, simple interface, and a physical object designed around the experience.",
+
+         mkSection: {
+            title: "From Idea to Working Camera",
+            copy:
+               "The project moved through the complete prototype loop: define the camera experience, bring up the ESP32-S3 and OV3660 camera hardware, build the interface and capture behavior, debug orientation and image timing, design the enclosure around measured components, print and assemble the housing, and validate the camera as a physical object.\n\nThat process made Kin Film less about any single feature and more about coordinating the entire product. Firmware decisions changed the interaction. Hardware dimensions changed the enclosure. Enclosure decisions changed assembly. Testing exposed issues that could not be found in a mockup alone.",
+         },
+
+         caseStudySections: [
+            {
+               title: "Designed With Bench",
+               copy:
+                  "Kin Film also became a real-world use case for Bench, another Kin product I am building. I used Bench while shaping the enclosure to reason through component placement, physical openings, enclosure structure, and fabrication preparation before moving the design into slicing and 3D printing.\n\nBench did not generate the finished STL or slicer toolpaths. Its role was the engineering layer before those specialist fabrication steps, helping connect recorded component information and physical reasoning to the prototype process.",
+            },
+            {
+               title: "Hardware + Interaction",
+               copy:
+                  "The prototype is built around an ESP32-S3 camera platform with an OV3660 sensor, a 2.4-inch ST7789 display, microSD storage, a rechargeable battery, and a physical shutter control. The experience is intentionally constrained around a film-roll model instead of an unlimited camera feed.\n\nThe interface communicates the active roll and remaining exposures while the physical shutter remains the primary capture action. Photos can then be transferred to a phone, keeping capture focused while still making the images easy to access afterward.",
+            },
+            {
+               title: "Fabrication + Assembly",
+               copy:
+                  "I measured the physical electronics, designed the enclosure around the actual components, prepared the model for fabrication, printed prototype parts, assembled the electronics inside the housing, and iterated against real fit and usability issues. This moved the work beyond a screen-based prototype and required the design to survive physical tolerances, cable routing, component access, and assembly constraints.",
+            },
+         ],
+
+         capabilities: [
+            {
+               title: "Working embedded camera",
+               description: "Powers on as a self-contained physical prototype and captures images through the ESP32-S3 / OV3660 camera system.",
+            },
+            {
+               title: "Physical shutter",
+               description: "Uses a dedicated hardware shutter control so taking a photo remains a physical interaction rather than an on-screen tap.",
+            },
+            {
+               title: "Custom Kin Film interface",
+               description: "Runs a purpose-built visual experience that communicates the roll, exposure count, and camera state in a restrained film-inspired language.",
+            },
+            {
+               title: "Limited film roll",
+               description: "Tracks a finite number of exposures so the interaction feels intentional rather than like unlimited smartphone capture.",
+            },
+            {
+               title: "Image capture + storage",
+               description: "Captures photographs through the camera module and stores the resulting image files for later access.",
+            },
+            {
+               title: "Phone transfer",
+               description: "Allows captured photographs to be accessed and transferred to a phone after shooting.",
+            },
+            {
+               title: "Custom enclosure",
+               description: "Houses the electronics inside a purpose-built 3D-printed body designed around the measured components and required controls.",
+            },
+            {
+               title: "Physical validation",
+               description: "Was assembled and tested as a real object, including camera orientation, mirroring, capture timing, component fit, and enclosure behavior.",
+            },
+         ],
+
+         myRole: [
+            "I designed and developed Kin Film as an end-to-end product prototype, working across product direction, UX, embedded firmware, hardware integration, enclosure design, prototyping, fabrication, assembly, and testing.",
+            "The project pushed me to make decisions across disciplines rather than treating software, interface design, and hardware as separate problems. I had to consider how physical dimensions affected interaction, how firmware behavior affected the experience, and how design decisions translated into something that could actually be printed, assembled, held, and used.",
+            "I also used Bench during enclosure development, connecting two Kin projects in one practical workflow: an engineering workspace supporting the reasoning that preceded fabrication of a working physical product.",
+         ],
+
+         engineeringHighlights: [
+            "Brought up and tested the ESP32-S3 camera platform and OV3660 image sensor",
+            "Built embedded camera behavior around a physical shutter and limited-exposure roll model",
+            "Designed and implemented the custom Kin Film interface on the rear display",
+            "Debugged camera orientation, mirroring, capture timing, stale-frame behavior, and image quality",
+            "Implemented image storage and phone-transfer behavior",
+            "Measured the electronics and designed a custom enclosure around the physical components",
+            "Used Bench to reason through enclosure placement and fabrication preparation before slicing",
+            "3D printed, assembled, and tested the camera as a working physical prototype",
+         ],
+
+         designPrinciples: [
+            "The physical interaction should support the experience, not decorate it.",
+            "A limited roll should make capture feel intentional without making the camera frustrating.",
+            "Software, electronics, and enclosure design are one product system.",
+            "Prototype decisions should be tested against the real object whenever possible.",
+            "Use specialist fabrication tools where they are strongest instead of pretending one tool owns the whole workflow.",
+            "Working behavior matters more than a polished mockup.",
+         ],
+
+         portfolioSummary: [
+            "Kin Film demonstrates how my work is expanding across the full product stack: software and UX, embedded systems, electronics integration, physical design, fabrication, assembly, and testing.",
+            "The project is a practical example of the kind of product/design engineer I am becoming—someone who wants to understand both the interface people experience and the physical and technical system required to make that experience real.",
+         ],
+
+         currentStatus:
+            "Kin Film has reached a working physical prototype milestone. The camera powers on, uses a physical shutter, runs the custom Kin Film interface, tracks remaining exposures, captures photographs, supports phone transfer, and operates inside its custom 3D-printed enclosure. Future work can focus on refinement, durability, image tuning, and enclosure iteration rather than proving the fundamental concept.",
+
+         metadata: {
+            status: "Working Physical Prototype",
+
+            stack: "ESP32-S3 · OV3660 · Embedded Firmware · ST7789 Display · microSD · Wi-Fi Transfer · 3D Printing · PETG · Bench",
+
+            role: "Product Design · UX · Embedded Development · Hardware Integration · Enclosure Design · Rapid Prototyping · Fabrication · Assembly · Testing",
          },
       },
    },
